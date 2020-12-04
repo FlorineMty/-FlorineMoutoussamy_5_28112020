@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="shortcut icon" type="image/png" href="">
+    <script src="https://kit.fontawesome.com/9877c52245.js" crossorigin="anonymous"></script>
+    <link href="css/stylesheetP5.css" rel="stylesheet">
+
+	<title>Orinoco, Mon panier</title>    
+
+</head>
+<body>
+    <header>
+        <form class="searchField" method="POST" action="traitement.php">
+            <label for="site-search"><i class="fas fa-search"></i></label>
+                <input type="search" placeholder="Recherche" id="site-search" name="search" aria-label="Search through site content">
+        </form>
+        <nav>
+            <a class="brandName" href="index.html">
+            Orinoco
+            </a>
+            <ul>
+                <li class="logIn">Se connecter</li>
+                <li class="cart"><i class="fas fa-shopping-cart"></i></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="cartContent">
+        <div class="text">Votre panier est vide</div>
+        <div class="new">Découvrez nos nouveautés</div>
+        <form class="registrationForm">
+            <h1>Formulaire d'inscription</h1>
+            <p>
+                <label for="courriel">Adresse email</label> :
+                <input type="email" name="courriel" id="courriel" required placeholder="utilisateur@domaine.fr">
+                <span id="aideCourriel"></span>
+            </p>
+            <p>
+                <label for="mdp">Mot de passe</label> :
+                <input type="password" name="mdp" id="mdp" required>
+                <span id="aideMdp"></span>
+            </p>
+            <p>
+                <input type="checkbox" name="confirmation" id="confirmation">
+                <label for="confirmation">M'envoyer un courriel de confirmation</label>
+            </p>
+            <p>
+                <input type="radio" name="abonnement" id="abonewspromo" value="abonewspromo">
+                <label for="abonewspromo">M'abonner à la newsletter et aux promotions</label>
+                <br>
+                <input type="radio" name="abonnement" id="abonews" value="abonews">
+                <label for="abonews">M'abonner uniquement à la newsletter</label>
+                <br>
+                <input type="radio" name="abonnement" id="abonews" value="abonews">
+                <label for="abonews">Ne pas m'abonner</label>
+                <br>
+            </p>
+            <input class="button" type="submit" value="Envoyer">
+            <input class="button" type="reset" value="Annuler">
+        </form>
+    </main>
+    <footer>
+        <div class="footerText">
+            <div class="footerBrandName"> Orinoco</div>
+            <div>A propos</div>
+            <div>Mentions légales</div>
+            <div class="contact"> <a href="mailto:customerservice@orinoco.com">Contactez-nous</a></div>
+        </div>
+    </footer>
+</body>
+</html>

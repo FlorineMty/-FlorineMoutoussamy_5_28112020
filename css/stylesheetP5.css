@@ -1,0 +1,286 @@
+@font-face 
+{
+	font-family: Barlow;
+	src: url("../fonts/barlow/Barlow-Regular.otf");
+}
+@font-face 
+{
+	font-family: Barlow;
+	src: url("../fonts/barlow/Barlow-Thin.otf");
+}
+@font-face 
+{
+	font-family: be-vietnam;
+	src: url("../fonts/be-vietnam/BeVietnam-Regular.ttf");
+}
+/* -----------------------------------------------INDEX PAGE-------------------------------------------------------------*/
+body
+{
+    font-family: 'Barlow-Regular';
+    padding: 0;
+    margin: 0;
+    z-index: 0;
+}
+header
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 20px 0 20px 0;
+    background-color: rgb(211, 211, 211);
+    color: white;
+    position: fixed;
+    z-index: 5;
+    top: 0;
+}
+.brandName
+{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80%;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: 'BeVietnam-Regular';
+    padding-left: 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+}
+nav
+{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10.5px 20px 0 0;
+    width: 100%;
+}
+ul
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0;
+}
+ul li
+{
+    list-style: none;
+    padding-right: 20px;
+    transition: .3s;
+}
+label
+{
+    padding: 22.5px 20px 22.5px 20px;
+}
+input[type="search"]
+{
+    border: none;
+    background-color: rgb(211, 211, 211);
+    padding-left: 15px;
+    border-bottom: 1px solid white;
+}
+::placeholder
+{
+    color: white;
+    font-family: 'Barlow-Regular';
+    font-size: 16px;
+}
+.searchField
+{
+    display: flex;
+    flex-wrap: nowrap;
+    padding-left: 20px;
+}
+.logIn:hover
+{
+    transform: scale(1.2);
+}
+.cart:hover
+{
+    transform: scale(1.2);
+}
+.websiteContent
+{
+    margin-top: 10%;
+}
+h1,
+h2
+{
+    font-family:'Barlow-Thin';
+    text-align: center;
+}
+.furniturePictures
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 5% 0;
+}
+.pictureCard
+{
+    padding-bottom: 10px;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+.picture
+{
+    background-color: white;
+    width: 500px;
+    height: 300px;
+    border-radius: 5px;
+    box-shadow: 0px 10px 10px rgba(192, 192, 192,0.5);
+    margin: 0 0 15px 0;
+    position: relative;
+    z-index: 0;
+}
+.picture:hover
+{
+    box-shadow: 0px 10px 10px #C0C0C0;
+}
+.picture img
+{
+    border-radius: 5px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+figcaption
+{
+    position: absolute;
+    z-index: 5;
+    background-color: rgba(255, 255, 255,0.8);
+    color: black;
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+    bottom: 0;
+    font-size: 16px;
+}
+h3
+{
+    padding: 10px;
+    margin: 0;
+}
+.price
+{
+    padding: 0 0 10px 10px;
+    margin: 0;
+}
+footer
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    background-color: rgb(211, 211, 211);
+    color: white;
+}
+.footerBrandName
+{
+    font-weight: bold;
+    font-size: 18px;
+    font-family: 'BeVietnam-Regular';
+    text-transform: uppercase;
+}
+.contact a
+{
+    text-decoration: none;
+    color: white;
+}
+.footerText
+{
+    padding-left: 10px;
+}
+/* -----------------------------------------------PRODUCT PAGE-------------------------------------------------------------*/
+
+.pictureProductPage
+{
+    background-color: white;
+    width: 500px;
+    height: 600px;
+    border-radius: 5px;
+    box-shadow: 0px 10px 10px rgba(192, 192, 192,0.5);
+}
+.pictureProductPage img
+{
+    border-radius: 5px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.productContent
+{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 10%;
+}
+aside
+{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: left;
+    width: 35%;
+    padding-top: 70px;
+}
+h2
+{
+    margin: 0;
+}
+.reference,
+.size
+{
+    font-weight: bold;
+}
+span
+{
+    font-weight: normal;
+}
+.addCart
+{
+    color: white;
+    background-color: black;
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+    margin: 50px 0;
+}
+.addCart:hover
+{
+    font-weight: bold; 
+    font-size: 18px;
+}
+/* -----------------------------------------------CART PAGE-------------------------------------------------------------*/
+.cartContent
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20%;
+}
+.text
+{
+    padding-bottom: 30px;
+}
+.new
+{
+    padding: 10px;
+    border: 1px solid black;
+}
+.registrationForm
+{
+    padding: 70px 20px;
+    background-color: lightgrey;
+    margin-top: 50px;
+}
+.button
+{
+    margin: 20px 50px;
+}
