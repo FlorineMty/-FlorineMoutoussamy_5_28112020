@@ -110,6 +110,10 @@ h2
     font-family:'Barlow-Thin';
     text-align: center;
 }
+h1
+{
+    margin-top: 25%;
+}
 .furniturePictures
 {
     width: 100%;
