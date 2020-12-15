@@ -31,7 +31,7 @@ loadDoc(API).then(article => {
 
         let articleDescription = document.createElement("div");
         productDisplay.appendChild(articleDescription);
-        articleDescription.classList.add("content");
+        articleDescription.classList.add("productDetails");
 
         let title = document.createElement("h3");
         articleDescription.appendChild(title);
@@ -48,21 +48,47 @@ loadDoc(API).then(article => {
         price.classList.add("price");
         price.textContent = `${article.price/100}$`;
 
-        let varnish = document.createElement("label");
-        varnish.textContent = "Select a varnish: ";
-        let menu = document.createElement("select");
-        let options = document.createElement("option");
-        furnitureCard.appendChild(varnish);
-        varnish.appendChild(menu);
-        menu.appendChild(options);
+        let label = document.createElement("label");
+        label.textContent = "Select a varnish: ";
+        let varnish = document.createElement("select");
+        let selection = `${article.varnish}`;
+        articleDescription.appendChild(label);
+        label.appendChild(varnish);
         varnish.classList.add("varnishSelection");
-        
-        articles.forEach(article =>  
-            {
-        options.textContent = `${article.varnish}`;
-            });
-    
-});
 
-var test = localStorage.getItem("test");
+        article.varnish.forEach((produit) => {
+            console.log(produit);
+            let options = document.createElement("option");
+            options.id = "varnish";
+            options.textContent = selection;
+            varnish.appendChild(options);
+              
+            });
+
+        let cartButton = document.createElement("button");
+        articleDescription.appendChild(cartButton);
+        cartButton.classList.add("cartButton");
+        cartButton.textContent = "Ajouter au panier";
+        
+        cartButton.addEventListener('click', function() {
+            alert('Your' + " " + article.name + ' has been added to your cart')
+            addToLocalStorage()
+        });
+
+        function addToLocalStorage(){
+            let cart = localStorage.getItem('cart');
+            console.log(cart);
+            cart = JSON.parse(cart);
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        });
+
+    
+    var test = localStorage.getItem("test");
     console.log(test);
+        
+
+    
+
+

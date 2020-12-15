@@ -14,10 +14,6 @@
 </head>
 <body>
     <header>
-        <form class="searchField" method="POST" action="traitement.php">
-            <label for="site-search"><i class="fas fa-search"></i></label>
-                <input type="search" placeholder="Recherche" id="site-search" name="search" aria-label="Search through site content">
-        </form>
         <nav>
             <a class="brandName" href="index.html">
             Orinoco
@@ -26,11 +22,15 @@
                 <li class="logIn">Se connecter</li>
                 <li class="cart"><i class="fas fa-shopping-cart"></i></li>
             </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
         </nav>
     </header>
-    <main class="cartContent">
-        <div class="text">Votre panier est vide</div>
-        <div class="new">Découvrez nos nouveautés</div>
+    <main class="cartPage">
+        <div class="cartContent"></div>
         <form class="registrationForm">
             <h1>Formulaire d'inscription</h1>
             <p>
@@ -70,5 +70,6 @@
             <div class="contact"> <a href="mailto:customerservice@orinoco.com">Contactez-nous</a></div>
         </div>
     </footer>
+    <script src="js/panier.js" defer> </script>
 </body>
 </html>
