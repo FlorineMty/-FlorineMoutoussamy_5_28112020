@@ -20,7 +20,11 @@
             </a>
             <ul>
                 <li class="logIn">Se connecter</li>
-                <li class="cart"><i class="fas fa-shopping-cart"></i></li>
+                <li class="cart">
+                    <a href="panier.html"><i class="fas fa-shopping-cart">
+                    </i><span class="cartIndex">0</span>
+                    </a>
+                </li>
             </ul>
             <div class="burger">
                 <div class="line1"></div>
@@ -31,23 +35,31 @@
     </header>
     <main class="cartPage">
         <div class="cartContent"></div>
+            </div>
         <form class="registrationForm">
             <h1>Formulaire d'inscription</h1>
-            <p>
-                <label for="courriel">Adresse email</label> :
-                <input type="email" name="courriel" id="courriel" required placeholder="utilisateur@domaine.fr">
-                <span id="aideCourriel"></span>
-            </p>
-            <p>
-                <label for="mdp">Mot de passe</label> :
-                <input type="password" name="mdp" id="mdp" required>
-                <span id="aideMdp"></span>
-            </p>
-            <p>
+            <div>
+                <label for="lastname">Nom </label>:
+                <input type="text" id="lastname" name="user_lastname">
+            </div>
+            <div>
+                <label for="firstame">Prénom </label>:
+                <input type="text" id="firstame" name="user_firstame">
+            </div>
+            <div>
+                <label for=postalCode>Code postal</label>
+                <input id=postalCode name=postalCode type=text required>
+            </div>
+            <div>
+                <label for="email">Adresse email</label> :
+                <input type="email" name="email" id="email" required placeholder="utilisateur@domaine.fr">
+                <span id="emailHelp"></span>
+            </div>
+            <div>
                 <input type="checkbox" name="confirmation" id="confirmation">
                 <label for="confirmation">M'envoyer un courriel de confirmation</label>
-            </p>
-            <p>
+            </div>
+            <div>
                 <input type="radio" name="abonnement" id="abonewspromo" value="abonewspromo">
                 <label for="abonewspromo">M'abonner à la newsletter et aux promotions</label>
                 <br>
@@ -57,7 +69,7 @@
                 <input type="radio" name="abonnement" id="abonews" value="abonews">
                 <label for="abonews">Ne pas m'abonner</label>
                 <br>
-            </p>
+            </div>
             <input class="button" type="submit" value="Envoyer">
             <input class="button" type="reset" value="Annuler">
         </form>

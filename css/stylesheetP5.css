@@ -72,7 +72,11 @@ ul li
     padding-right: 20px;
     transition: .3s;
 }
-
+ul li a
+{
+    text-decoration: none;
+    color: white;
+}
 .logIn:hover
 {
     transform: scale(1.2);
@@ -158,23 +162,22 @@ h2
 {
     margin: 0;
 }
-
+.cartIndex
+{
+    padding-left: 5px;
+}
 /* -----------------------------------------------CART PAGE-------------------------------------------------------------*/
-.cartContent
+.cartPage
 {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 20%;
 }
-.text
+.cartContent
 {
-    padding-bottom: 30px;
-}
-.new
-{
-    padding: 10px;
-    border: 1px solid black;
+    display: flex;
+    flex-direction: column
 }
 .registrationForm
 {
@@ -218,7 +221,6 @@ h2
 }
 .card img
 {
-    width: 100%;
     height: 300px;
     object-fit: cover;
 }

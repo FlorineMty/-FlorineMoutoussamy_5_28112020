@@ -23,8 +23,8 @@ loadDoc(API).then(articles => {
         let image = document.createElement("img");
         furnitureCard.appendChild(image);
         image.classList.add("furniturePicture");
-        image.alt = `${article.name}`;
-        image.src = `${article.imageUrl}`;
+        image.alt = article.name;
+        image.src = article.imageUrl;
 
         let articleDescription = document.createElement("div");
         furnitureCard.appendChild(articleDescription);
@@ -33,17 +33,17 @@ loadDoc(API).then(articles => {
         let title = document.createElement("h3");
         articleDescription.appendChild(title);
         title.classList.add("cardTitle");
-        title.textContent = `${article.name}`;
+        title.textContent = article.name;
 
         let description = document.createElement("p");
         articleDescription.appendChild(description);
         description.classList.add("descriptionCard");
-        description.textContent = `${article.description}`;
+        description.textContent = article.description;
 
         let price = document.createElement("p");
         articleDescription.appendChild(price);
         price.classList.add("price");
-        price.textContent = `${article.price/100}$`
+        price.textContent = article.price/100 + "$";
 
         let link = document.createElement("a");
         articleDescription.appendChild(link);
@@ -53,9 +53,3 @@ loadDoc(API).then(articles => {
         
         })
     })
-
-    const button = document.querySelector('link');
-
-    button.addEventListener('click', event => {
-      button.href = `produit.html?${article._id}`;
-    });
