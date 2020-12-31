@@ -38,28 +38,36 @@
             </div>
         <form class="registrationForm">
             <h1>Formulaire d'inscription</h1>
-            <div>
-                <label for="lastname">Nom </label>:
+            <div class="formField">
+                <label for="lastname">Nom </label>
                 <input type="text" id="lastname" name="user_lastname">
             </div>
-            <div>
-                <label for="firstame">Prénom </label>:
-                <input type="text" id="firstame" name="user_firstame">
+            <div class="formField">
+                <label for="firstame">Prénom </label>
+                <input type="text" id="firstname" name="user_firstame">
             </div>
-            <div>
+            <div class="formField">
+                <label for=address>Adresse</label>
+                <input id=address name=address type=text required>
+            </div>
+            <div class="formField">
+                <label for=city>Ville</label>
+                <input id=city name=city type=text required>
+            </div>
+            <div class="formField">
                 <label for=postalCode>Code postal</label>
-                <input id=postalCode name=postalCode type=text required>
+                <input id=postalCode name=postalCode type=number required>
             </div>
-            <div>
-                <label for="email">Adresse email</label> :
+            <div class="formField">
+                <label for="email">Adresse email</label> 
                 <input type="email" name="email" id="email" required placeholder="utilisateur@domaine.fr">
                 <span id="emailHelp"></span>
             </div>
-            <div>
+            <div class="formField">
                 <input type="checkbox" name="confirmation" id="confirmation">
                 <label for="confirmation">M'envoyer un courriel de confirmation</label>
             </div>
-            <div>
+            <div class="formField">
                 <input type="radio" name="abonnement" id="abonewspromo" value="abonewspromo">
                 <label for="abonewspromo">M'abonner à la newsletter et aux promotions</label>
                 <br>

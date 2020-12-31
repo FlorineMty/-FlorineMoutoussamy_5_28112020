@@ -57,6 +57,7 @@ loadDoc(API).then(article => {
             let options = document.createElement("option");
             options.id = "varnish";
             options.textContent = product;
+            options.value = product;
             varnish.appendChild(options); 
             });
 
@@ -75,7 +76,7 @@ loadDoc(API).then(article => {
 
         let selectedItem = {
             id : article._id,
-            varnish : selectedVarnish
+            varnish : selectedVarnish,
             };
 
         let cartIndex = document.querySelector('.cartIndex');
@@ -86,8 +87,7 @@ loadDoc(API).then(article => {
         cartButton.addEventListener('click', async function() {
             alert('Your' + " " + article.name + ' has been added to your cart')
                 cartCount();
-                stockPanier(selectedItem);
-                totalPrice();
+                cartStock(selectedItem);
             
         });
 
@@ -111,28 +111,24 @@ loadDoc(API).then(article => {
         }
         displayCart();
 
-        function totalPrice(){
-            let price = article.price/100;
-            let totalCartPrice = JSON.parse(localStorage.getItem('totalPrice'));
-            
-            if(totalCartPrice != null){
-                localStorage.setItem("totalPrice'", totalCartPrice + price);
-            } else {
-                localStorage.setItem("totalPrice", price);
-            }
-        }
-
-        function stockPanier(selectedItem) {
+        function cartStock(selectedItem) {
             console.log ("le produit est ", selectedItem);
             let idItem = localStorage.getItem ('selectedItem'); 
 
-           if(idItem  === null){ 
-               localStorage.setItem('selectedItem', JSON.stringify(selectedItem));
+           if(idItem  == null){ 
+               let items = [];
+               items.push(selectedItem);
+               localStorage.setItem('selectedItem', JSON.stringify(items));
                 
             } 
             else {
                 let list = JSON.parse(idItem);
-                localStorage.setItem('selectedItem', JSON.stringify(list));
+                let items = [];
+                list.forEach(element => {
+                    items.push(element); 
+                });
+                items.push(selectedItem);
+                localStorage.setItem('selectedItem', JSON.stringify(items));
             }
 
         }    
