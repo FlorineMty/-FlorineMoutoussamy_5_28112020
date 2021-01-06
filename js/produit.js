@@ -69,23 +69,22 @@ loadDoc(API).then(article => {
         let cartButton = document.createElement("button");
         articleDescription.appendChild(cartButton);
         cartButton.classList.add("cartButton");
-        cartButton.textContent = "Ajouter au panier";
+        cartButton.textContent = "Add to cart";
 
-        let selectedVarnish = document.getElementById("varnishSelection").value;
-            console.log(selectedVarnish);
-
-        let selectedItem = {
-            id : article._id,
-            varnish : selectedVarnish,
-            };
 
         let cartIndex = document.querySelector('.cartIndex');
 
 
-        console.log(selectedItem);
-
         cartButton.addEventListener('click', async function() {
             alert('Your' + " " + article.name + ' has been added to your cart')
+
+            let selectedVarnish = document.getElementById("varnishSelection").value;
+            console.log(selectedVarnish);
+
+            let selectedItem = {
+                id : article._id,
+                varnish : selectedVarnish,
+                };
                 cartCount();
                 cartStock(selectedItem);
             

@@ -49,7 +49,7 @@ loadDoc(API).then(articles => {
         articleDescription.appendChild(link);
         link.classList.add("link");
         link.href = `produit.html?id=${article._id}`;
-        link.textContent = "Découvrir";
+        link.textContent = "See more details";
         
         })
     })

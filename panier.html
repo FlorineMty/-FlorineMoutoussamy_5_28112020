@@ -19,7 +19,7 @@
             Orinoco
             </a>
             <ul>
-                <li class="logIn">Se connecter</li>
+                <li class="logIn">Log in</li>
                 <li class="cart">
                     <a href="panier.html"><i class="fas fa-shopping-cart">
                     </i><span class="cartIndex">0</span>
@@ -37,57 +37,37 @@
         <div class="cartContent"></div>
             </div>
         <form class="registrationForm">
-            <h1>Formulaire d'inscription</h1>
+            <h1>Order Registration</h1>
             <div class="formField">
-                <label for="lastname">Nom </label>
+                <label for="lastname">Last name </label>
                 <input type="text" id="lastname" name="user_lastname">
             </div>
             <div class="formField">
-                <label for="firstame">Prénom </label>
+                <label for="firstame">First Name </label>
                 <input type="text" id="firstname" name="user_firstame">
             </div>
             <div class="formField">
-                <label for=address>Adresse</label>
+                <label for=address>Adress</label>
                 <input id=address name=address type=text required>
             </div>
             <div class="formField">
-                <label for=city>Ville</label>
+                <label for=city>City</label>
                 <input id=city name=city type=text required>
             </div>
             <div class="formField">
-                <label for=postalCode>Code postal</label>
-                <input id=postalCode name=postalCode type=number required>
-            </div>
-            <div class="formField">
-                <label for="email">Adresse email</label> 
+                <label for="email">Email</label> 
                 <input type="email" name="email" id="email" required placeholder="utilisateur@domaine.fr">
                 <span id="emailHelp"></span>
             </div>
-            <div class="formField">
-                <input type="checkbox" name="confirmation" id="confirmation">
-                <label for="confirmation">M'envoyer un courriel de confirmation</label>
-            </div>
-            <div class="formField">
-                <input type="radio" name="abonnement" id="abonewspromo" value="abonewspromo">
-                <label for="abonewspromo">M'abonner à la newsletter et aux promotions</label>
-                <br>
-                <input type="radio" name="abonnement" id="abonews" value="abonews">
-                <label for="abonews">M'abonner uniquement à la newsletter</label>
-                <br>
-                <input type="radio" name="abonnement" id="abonews" value="abonews">
-                <label for="abonews">Ne pas m'abonner</label>
-                <br>
-            </div>
-            <input class="button" type="submit" value="Envoyer">
-            <input class="button" type="reset" value="Annuler">
+            <input class="sendButton" type="submit" value="Confirm your order">
         </form>
     </main>
     <footer>
         <div class="footerText">
             <div class="footerBrandName"> Orinoco</div>
-            <div>A propos</div>
-            <div>Mentions légales</div>
-            <div class="contact"> <a href="mailto:customerservice@orinoco.com">Contactez-nous</a></div>
+            <div>Who are we?</div>
+            <div>Terms and conditions</div>
+            <div class="contact"> <a href="mailto:contact@orinoco.com">Contact us</a></div>
         </div>
     </footer>
     <script src="js/panier.js" defer> </script>
