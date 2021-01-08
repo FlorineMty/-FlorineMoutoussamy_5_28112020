@@ -35,8 +35,10 @@ if(retrieveData == null) {
     displayDiscoverButton.className = "discoverButton";
     displayEmptyCartContainer.appendChild(displayDiscoverButton);
 
+    document.getElementById("registrationForm").style.display = "none";
+
 } else {
-    cartContainer.style.display = "none";
+    cartContainer.innerHTML = '';
 
 retrieveData.forEach(element => {
     console.log(element);
