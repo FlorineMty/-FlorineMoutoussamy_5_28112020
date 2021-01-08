@@ -43,7 +43,7 @@ loadDoc(API).then(articles => {
         let price = document.createElement("p");
         articleDescription.appendChild(price);
         price.classList.add("price");
-        price.textContent = article.price/100 + "$";
+        price.textContent = article.price/100 + " €";
 
         let link = document.createElement("a");
         articleDescription.appendChild(link);

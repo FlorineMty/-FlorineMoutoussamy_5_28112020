@@ -36,7 +36,7 @@
     <main class="cartPage">
         <div class="cartContent"></div>
             </div>
-        <form class="registrationForm">
+        <form id="registrationForm">
             <h1>Order Registration</h1>
             <div class="formField">
                 <label for="lastname">Last name </label>
@@ -59,7 +59,7 @@
                 <input type="email" name="email" id="email" required placeholder="utilisateur@domaine.fr">
                 <span id="emailHelp"></span>
             </div>
-            <input class="sendButton" type="submit" value="Confirm your order">
+            <input class="sendButton" type="submit" onclick="confirmOrder()" value="Confirm your order">
         </form>
     </main>
     <footer>

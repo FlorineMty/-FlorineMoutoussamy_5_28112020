@@ -9,19 +9,19 @@ const id = params.get("id");
 
 
 var API = "http://localhost:3000/api/furniture/"+ id ;
-async function loadDoc(url, idItem) {
-    let result = await fetch(url + idItem)
-    return result.json()
+function loadDoc(url, idItem) {
+    let result = fetch(url + idItem).then(response => response.json()).then(result => {
+        console.log(result);
+        return result;
+    });
 }
-
-
 
 let retrieveData = JSON.parse(localStorage.getItem("selectedItem"));
 let cartContainer = document.getElementsByClassName("cartPage");
 
 if(retrieveData == null) {
     let displayEmptyCartContainer = document.createElement('div');
-    displayEmptyCartContainer.className = "emptyCartContainer"
+    displayEmptyCartContainer.className = "emptyCartContainer";
     document.querySelector(".cartContent").appendChild(displayEmptyCartContainer);
 
     let displayEmptyCart = document.createElement('div');
@@ -36,16 +36,14 @@ if(retrieveData == null) {
     displayEmptyCartContainer.appendChild(displayDiscoverButton);
 
 } else {
-    cartContainer.innerHTML = '';
+    cartContainer.style.display = "none";
 
 retrieveData.forEach(element => {
     console.log(element);
     console.log(retrieveData);
     let idItem = element["id"];
     let varnishItem = element["varnish"]
-    let infoItem = loadDoc(url, idItem);
-    console.log(varnishItem);
-    console.log(infoItem);
+    var infoItem = loadDoc(url, idItem);
 
     let productInfo = document.createElement('div');
         document.querySelector(".cartContent").appendChild(productInfo);
@@ -53,12 +51,12 @@ retrieveData.forEach(element => {
 
     let productTitle = document.createElement('h3');
         productTitle.id = "itemTitleCart";
-        productTitle.innerText = infoItem.name;
+        productTitle.innerText = infoItem["name"];
         productInfo.appendChild(productTitle);
 
     let productImage = document.createElement('img');
         productImage.id = "itemImageCart";
-        productImage.src = infoItem.imageUrl;
+        productImage.src = infoItem["imageUrl"];
         productInfo.appendChild(productImage);
         
     let productVarnish = document.createElement('p');
@@ -68,7 +66,7 @@ retrieveData.forEach(element => {
 
     let productPrice = document.createElement('p');
         productPrice.id = "itemPriceCart";
-        productPrice.innerText = 'Unit price : ' + infoItem.price/100 + ` $`;
+        productPrice.innerText = infoItem.price/100 + ` €`;
         productInfo.appendChild(productPrice);
 
     let productDelete = document.createElement('i');
@@ -86,7 +84,7 @@ retrieveData.forEach(element => {
         for(let i = 0; i<retrieveData.length; i++){
         totalAmount += retrieveData.price * retrieveData.quantity;
         }
-        totalPriceOrder.innerText = "The total amount of the order is " + totalAmount + ` $`;
+        totalPriceOrder.innerText = "The total amount of the order is " + totalAmount + ` €`;
 
     let clearCart= document.createElement('button');
         document.querySelector(".cartContent").appendChild(clearCart);
@@ -100,33 +98,30 @@ retrieveData.forEach(element => {
     });
 
 }
-/*
-    let products = [];
 
+function confirmOrder() {
+
+    let products = [];
+    console.log(products);
 
     JSON.parse(localStorage.getItem("selectedItem")).forEach((element) => {
     products.push(id);
         });
     
-    // Regex
-    let checkString = /^[A-Z]{1}[a-z]/;
-    let checkMail = /.+@.+\..+/;
-    let checkAdresse = /^[^@&"()!_$*€£`%+=\/;?#]+$/;
-    
     // Get value fields entered by user
          
     let firstName = document.getElementById('firstname').value;
-    let lastnName = document.getElementById('lastname').value;
+    let lastName = document.getElementById('lastname').value;
     let email = document.getElementById('email').value;
     let city = document.getElementById('city').value;
     let address = document.getElementById('address').value;
     
     let contact = {
-        "firstName": firstname,
-        "lastName": lastname,
-        "email": email,
-        "city": city,
-        "address": address
+        firstName: firstname,
+        lastName: lastname,
+        email: email,
+        city: city,
+        address: address,
     };
     console.log(contact);
     
@@ -137,19 +132,26 @@ retrieveData.forEach(element => {
     
     console.log(object);
     
-     let objectRequest = JSON.stringify(object);
+    let objectRequest = JSON.stringify(object);
     
-     var request = new XMLHttpRequest();
-          request.open("POST", "http://localhost:3000/api/furniture/order");
-          request.setRequestHeader("Content-Type", "application/json");
-          request.onreadystatechange = function () {
+    let request = new XMLHttpRequest();
+        request.open("POST", "http://localhost:3000/api/furniture/order");
+        request.setRequestHeader("Content-Type", "application/json");
+        request.send(confirmOrder);
+        request.onreadystatechange = function () {
             if (this.readyState == XMLHttpRequest.DONE) {
-              console.log(this.responseText);
-              localStorage.setItem("order", this.responseText);
-              window.location.href = "confirmation.html";
+                console.log(this.responseText);
+                localStorage.setItem("order", this.responseText);
+                window.location.href = "confirmation.html";
             }
-          };
+        };
+    }
+    
 
 
-*/
+
+   
+
+
+
 

@@ -43,7 +43,7 @@ loadDoc(API).then(article => {
         let price = document.createElement("p");
         articleDescription.appendChild(price);
         price.classList.add("price");
-        price.textContent = article.price/100 + "$";
+        price.textContent = article.price/100 + " €";
 
         let label = document.createElement("label");
         label.textContent = "Select a varnish: ";
