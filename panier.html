@@ -40,26 +40,26 @@
             <h1>Order Registration</h1>
             <div class="formField">
                 <label for="lastname">Last name </label>
-                <input type="text" id="lastname" name="user_lastname">
+                <input type="text" id="lastname" name="user_lastname" required><span id='missLastname'></span>
             </div>
             <div class="formField">
                 <label for="firstame">First Name </label>
-                <input type="text" id="firstname" name="user_firstame">
+                <input type="text" id="firstname" name="user_firstame" required><span id='missFirstname'></span>
             </div>
             <div class="formField">
-                <label for=address>Adress</label>
-                <input id=address name=address type=text required>
+                <label for=address>Address</label>
+                <input id="address" name=address type=text required><span id='missAddress'></span>
             </div>
             <div class="formField">
                 <label for=city>City</label>
-                <input id=city name=city type=text required>
+                <input id="city" name=city type=text required><span id='missCity'></span>
             </div>
             <div class="formField">
                 <label for="email">Email</label> 
-                <input type="email" name="email" id="email" required placeholder="utilisateur@domaine.fr">
+                <input type="email" name="email" id="email" class="validTab" required><span id='missEmail'></span>
                 <span id="emailHelp"></span>
             </div>
-            <input class="sendButton" type="submit" onclick="confirmOrder()" value="Confirm your order">
+            <input id="sendButton" type="button" value="Confirm your order">
         </form>
     </main>
     <footer>
