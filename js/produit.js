@@ -1,4 +1,4 @@
-
+/*import {displayCart} from "./main";*/
 
 // API URL
 const url = "http://localhost:3000/api/furniture/";
@@ -14,7 +14,7 @@ async function loadDoc(url) {
     let result = await fetch(url)
     return result.json()
 }
-
+/*function displayProductDetails() {*/
 loadDoc(API).then(article => {
         let productDisplay = document.createElement("article");
         document.querySelector("#productContent").appendChild(productDisplay);
@@ -45,6 +45,7 @@ loadDoc(API).then(article => {
         price.classList.add("price");
         price.textContent = article.price/100 + " €";
 
+    function selectVarnish(){
         let label = document.createElement("label");
         label.textContent = "Select a varnish: ";
         let varnish = document.createElement("select");
@@ -60,23 +61,35 @@ loadDoc(API).then(article => {
             options.value = product;
             varnish.appendChild(options); 
             });
-
-
-
-
+    }
+    selectVarnish();
+    
+    function changeTitleTag(){
+        let titleTag = document.querySelector("title");
+        titleTag.textContent = article.name + ", Orinoco";
+    }
+    function totalPrice(){
+        let price = parseInt(article.price)
+        let cartPrice = JSON.parse(localStorage.getItem('totalPrice'));
+            if(cartPrice != null){
+                localStorage.setItem("totalPrice", cartPrice + price);
+            } else {
+                localStorage.setItem("totalPrice", price);
+            }
+    }
+    
         //-----CART----------//
-
+    function addToCart(){
         let cartButton = document.createElement("button");
         articleDescription.appendChild(cartButton);
         cartButton.classList.add("cartButton");
         cartButton.textContent = "Add to cart";
 
+        let cartIndex = document.querySelector(".cartIndex");
 
-        let cartIndex = document.querySelector('.cartIndex');
-
-
-        cartButton.addEventListener('click', async function() {
-            alert('Your' + " " + article.name + ' has been added to your cart')
+    
+        cartButton.addEventListener("click", async function() {
+            alert("Your" + " " + article.name + " has been added to your cart")
 
             let selectedVarnish = document.getElementById("varnishSelection").value;
             console.log(selectedVarnish);
@@ -87,37 +100,30 @@ loadDoc(API).then(article => {
                 };
                 cartCount();
                 cartStock(selectedItem);
+                totalPrice();
             
         });
 
         function cartCount(){
-            let itemCount = localStorage.getItem('quantity');
+            let itemCount = localStorage.getItem("quantity");
             itemCount = parseInt(itemCount);
             if(itemCount){
-                localStorage.setItem('quantity', itemCount + 1);
+                localStorage.setItem("quantity", itemCount + 1);
                 cartIndex.textContent = itemCount + 1;
             } else{
-                localStorage.setItem('quantity', 1);
+                localStorage.setItem("quantity", 1);
                 cartIndex.textContent = itemCount = 1;
             }
         }
 
-        function displayCart(){
-            let itemCount = localStorage.getItem('quantity');
-            if(itemCount){
-                cartIndex.textContent = itemCount;
-            }
-        }
-        displayCart();
-
         function cartStock(selectedItem) {
             console.log ("le produit est ", selectedItem);
-            let idItem = localStorage.getItem ('selectedItem'); 
+            let idItem = localStorage.getItem ("selectedItem"); 
 
            if(idItem  == null){ 
                let items = [];
                items.push(selectedItem);
-               localStorage.setItem('selectedItem', JSON.stringify(items));
+               localStorage.setItem("selectedItem", JSON.stringify(items));
                 
             } 
             else {
@@ -127,27 +133,31 @@ loadDoc(API).then(article => {
                     items.push(element); 
                 });
                 items.push(selectedItem);
-                localStorage.setItem('selectedItem', JSON.stringify(items));
+                localStorage.setItem("selectedItem", JSON.stringify(items));
             }
 
         }    
-        });
+    }
+    addToCart();
 
-        
-
-
-
-/*
-        
-
-        //Add items to the cart
-        function cartButtonClicked(event){
-            let button = event.target
-            let productInformation = button.parentElement.parentElement
-            let name = productInformation.getElementsByClassName('cardTitle')[0].innerText
-            let price = productInformation.getElementsByClassName('price')[0].innerText
-            let image = productInformation.getElementsByClassName('pictureProductPage')[0].src
-            console.log(name, price, image)
+    function displayCart(){
+        let itemCount = localStorage.getItem("quantity");
+        if(itemCount){
+            document.querySelector(".cartIndex").textContent = itemCount;
         }
-*/
+    }
 
+    displayCart();
+    changeTitleTag();
+});
+
+        
+
+
+
+
+
+    
+
+    
+        

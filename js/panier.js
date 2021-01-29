@@ -1,4 +1,4 @@
-
+/*import {displayCart} from "./main";*/
 // API URL
 const url = "http://localhost:3000/api/furniture/";
 
@@ -10,23 +10,25 @@ const id = params.get("id");
 
 var API = "http://localhost:3000/api/furniture/"+ id ;
 function loadDoc(url, idItem) {
-
-    //CrÃ©ation de la variable item. ( var pour quelle soit accessible Ã  l'interieur de la function xhttp.onreadystatechange)
     var item;
-    //On fait une vrai requete AJAX
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            //On charge le resultat sous forme de text dans item
             item = this.responseText;
         }
     };
-    // On dÃ©finit les parametres de la requete ( la valeur false c'est pour ne pas faire de l'asycrone)
     xhttp.open("GET", url + idItem , false);
     xhttp.send();
-    //On retourne la valeur de item
     return item;
 }
+
+function displayCart(){
+    let itemCount = localStorage.getItem("quantity");
+    if(itemCount){
+        document.querySelector(".cartIndex").textContent = itemCount;
+    }
+}
+displayCart();
 
 function getCartData () {
 
@@ -34,16 +36,16 @@ let retrieveData = JSON.parse(localStorage.getItem("selectedItem"));
 let cartContainer = document.getElementsByClassName("cartPage");
 
 if(retrieveData == null) {
-    let displayEmptyCartContainer = document.createElement('div');
+    let displayEmptyCartContainer = document.createElement("div");
     displayEmptyCartContainer.className = "emptyCartContainer";
     document.querySelector(".cartContent").appendChild(displayEmptyCartContainer);
 
-    let displayEmptyCart = document.createElement('div');
+    let displayEmptyCart = document.createElement("div");
     displayEmptyCart.textContent = "Your cart is empty";
     displayEmptyCart.className = "emptyCart";
     displayEmptyCartContainer.appendChild(displayEmptyCart);
 
-    let displayDiscoverButton = document.createElement('a');
+    let displayDiscoverButton = document.createElement("a");
     displayDiscoverButton.textContent = "Discover our products";
     displayDiscoverButton.href = "index.html"
     displayDiscoverButton.className = "discoverButton";
@@ -52,7 +54,7 @@ if(retrieveData == null) {
     document.getElementById("registrationForm").style.display = "none";
 
 } else {
-    cartContainer.innerHTML = '';
+    cartContainer.innerHTML = "";
 
 retrieveData.forEach(element => {
     console.log(element);
@@ -61,63 +63,59 @@ retrieveData.forEach(element => {
     let varnishItem = element["varnish"]
     let infoItem = JSON.parse(loadDoc(url, idItem));
 
-    let productInfo = document.createElement('div');
+    let productInfo = document.createElement("div");
         document.querySelector(".cartContent").appendChild(productInfo);
         productInfo.className = "productSummary";
 
-    let productTitle = document.createElement('h3');
+    let productTitle = document.createElement("h3");
         productTitle.id = "itemTitleCart";
         productTitle.innerText = infoItem["name"];
         productInfo.appendChild(productTitle);
 
-    let productImage = document.createElement('img');
+    let productImage = document.createElement("img");
         productImage.id = "itemImageCart";
         productImage.src = infoItem["imageUrl"];
         productInfo.appendChild(productImage);
         
-    let productVarnish = document.createElement('p');
+    let productVarnish = document.createElement("p");
         productVarnish.id = "itemVarnishCart";
         productVarnish.innerText = varnishItem;
         productInfo.appendChild(productVarnish);
 
-    let productPrice = document.createElement('p');
+    let productPrice = document.createElement("p");
         productPrice.id = "itemPriceCart";
         productPrice.innerText = infoItem.price/100 + ` €`;
         productInfo.appendChild(productPrice);
 
-    let productDelete = document.createElement('i');
+    let productDelete = document.createElement("i");
         productDelete.id = "removeItemCart";
-        productDelete.className = 'fas fa-trash-alt';
+        productDelete.className = "fas fa-trash-alt";
         productInfo.appendChild(productDelete);
 
     });
 
-    let totalPriceOrder = document.createElement('p');
+    let totalPriceOrder = document.createElement("p");
         totalPriceOrder.id = "totalPriceOrder";
         document.querySelector(".cartContent").appendChild(totalPriceOrder);
-
-    let totalAmount = 0;
-        for(let i = 0; i<retrieveData.length; i++){
-        totalAmount += retrieveData.price * retrieveData.quantity;
-        }
-        totalPriceOrder.innerText = "The total amount of the order is " + totalAmount + ` €`;
-
-    let clearCart= document.createElement('button');
+    let totalAmount = JSON.parse(localStorage.getItem("totalPrice"))
+        totalPriceOrder.innerText = "The total amount of your order is " + totalAmount/100 + ` €`;
+    
+    let clearCart= document.createElement("button");
         document.querySelector(".cartContent").appendChild(clearCart);
         clearCart.className = "clearCartButton";
         clearCart.textContent = "Empty the cart"; 
         clearCart.addEventListener("click" , () => {
-            alert('Your cart is empty')
+            alert("Your cart is empty")
             localStorage.clear();
             location.reload();       
             
     });
-
 }
 };
-getCartData();
 
-document.getElementById('sendButton').addEventListener('click', orderValidation);
+    getCartData();
+
+document.getElementById("sendButton").addEventListener("click", orderValidation);
 
 
 function orderValidation(event){
@@ -134,11 +132,11 @@ function orderValidation(event){
         products.push(element.id);  
     });    
 
-    let firstName = document.getElementById('firstname').value;
-    let lastName = document.getElementById('lastname').value;
-    let email = document.getElementById('email').value;
-    let city = document.getElementById('city').value;
-    let address = document.getElementById('address').value;
+    let firstName = document.getElementById("firstname").value;
+    let lastName = document.getElementById("lastname").value;
+    let email = document.getElementById("email").value;
+    let city = document.getElementById("city").value;
+    let address = document.getElementById("address").value;
     console.log(firstName);
     console.log(lastName);
 
@@ -162,81 +160,81 @@ function orderValidation(event){
     console.log(objectRequest);
     // Get value fields entered by user  
 
-    var validFormFirstname = document.getElementById('firstname');
-    var missFirstname = document.getElementById('missFirstname');
-    var validFormLastname = document.getElementById('lastname');
-    var missLastname = document.getElementById('missLastname');
+    var validFormFirstname = document.getElementById("firstname");
+    var missFirstname = document.getElementById("missFirstname");
+    var validFormLastname = document.getElementById("lastname");
+    var missLastname = document.getElementById("missLastname");
     var regexNames = /^[a-zA-Z ,.'-]+$/;
 
-    var validFormAddress = document.getElementById('address');
-    var missAddress = document.getElementById('missAddress');
-    var validFormCity = document.getElementById('city');
-    var missCity = document.getElementById('missCity');
+    var validFormAddress = document.getElementById("address");
+    var missAddress = document.getElementById("missAddress");
+    var validFormCity = document.getElementById("city");
+    var missCity = document.getElementById("missCity");
     var regexAddress = /([0-9]{1,3}(([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
     var regexCity = /((([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
 
-    var validFormEmail = document.getElementById('email');
-    var missEmail = document.getElementById('missEmail');
+    var validFormEmail = document.getElementById("email");
+    var missEmail = document.getElementById("missEmail");
     var regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     var error = false;
 
         if(validFormFirstname.validity.valueMissing){
             event.preventDefault();
-            missFirstname.textContent = 'Firstname is missing';
-            missFirstname.style.color = 'red';
+            missFirstname.textContent = "Firstname is missing";
+            missFirstname.style.color = "red";
             error = true;
         } else if (regexNames.test(validFormFirstname.value) == false){
             event.preventDefault();
-            missFirstname.textContent = 'Invalid format';
-            missFirstname.style.color = 'orange';
+            missFirstname.textContent = "Invalid format";
+            missFirstname.style.color = "orange";
             error = true;
         }
         if(validFormLastname.validity.valueMissing){
             event.preventDefault();
-            missLastname.textContent = 'Lastname is missing';
-            missLastname.style.color = 'red';
+            missLastname.textContent = "Lastname is missing";
+            missLastname.style.color = "red";
             error = true;
         } else if (regexNames.test(validFormLastname.value) == false){
             event.preventDefault();
-            missLastname.textContent = 'Invalid format';
-            missLastname.style.color = 'orange';
+            missLastname.textContent = "Invalid format";
+            missLastname.style.color = "orange";
             error = true;
         }
 
         if(validFormAddress.validity.valueMissing){
             event.preventDefault();   
-            missAddress.textContent = 'Address is missing';
-            missAddress.style.color = 'red';
+            missAddress.textContent = "Address is missing";
+            missAddress.style.color = "red";
             error = true;
         } else if (regexAddress.test(validFormAddress.value) == false){
             event.preventDefault();
-            missAddress.textContent = 'Invalid format';
-            missAddress.style.color = 'orange';
+            missAddress.textContent = "Invalid format";
+            missAddress.style.color = "orange";
             error = true;
         }
 
         if(validFormCity.validity.valueMissing){
             event.preventDefault();
-            missCity.textContent = 'City is missing';
-            missCity.style.color = 'red';
+            missCity.textContent = "City is missing";
+            missCity.style.color = "red";
             error = true;
         } else if (regexCity.test(validFormCity.value) == false){
             event.preventDefault();
-            missCity.textContent = 'Invalid format';
-            missCity.style.color = 'orange';
+            missCity.textContent = "Invalid format";
+            missCity.style.color = "orange";
             error = true;
         }
         
         if(validFormEmail.validity.valueMissing){
             event.preventDefault();
-            missEmail.textContent = 'Email is missing';
-            missEmail.style.color = 'red';
+            missEmail.textContent = "Email is missing";
+            missEmail.style.color = "red";
             error = true;
         } else if (regexEmail.test(validFormEmail.value) == false){
             event.preventDefault();
-            missEmail.textContent = 'Invalid format';
-            missEmail.style.color = 'orange';
+            missEmail.textContent = "Invalid format";
+            missEmail.style.color = "orange";
             error = true;
         }
   

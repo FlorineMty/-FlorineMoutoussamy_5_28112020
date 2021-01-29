@@ -1,21 +1,25 @@
 
-
+// Get data from API
 var API = "http://localhost:3000/api/furniture";
-async function loadDoc(url) {
+/*async function loadDoc(url) {
     let result = await fetch(url)
     return result.json()
 }
-
-// Remove HTML content from list
-document.getElementById("furniturePictures").textContent = "";
-
+*/
+function displayCart(){
+  let itemCount = localStorage.getItem("quantity");
+  if(itemCount){
+      document.querySelector(".cartIndex").textContent = itemCount;
+  }
+}
+displayCart();
 
 // Display furniture cards
-loadDoc(API).then(articles => {
+function displayItems() {
+LoadDoc.loadDocFetch(API).then(articles => {
   console.log(articles)
     articles.forEach(article =>  
     {
-      
       let furnitureCard = document.createElement("article");
         document.querySelector("#furniturePictures").appendChild(furnitureCard);
         furnitureCard.classList.add("card");
@@ -53,3 +57,6 @@ loadDoc(API).then(articles => {
         
         })
     })
+
+  }
+  displayItems();

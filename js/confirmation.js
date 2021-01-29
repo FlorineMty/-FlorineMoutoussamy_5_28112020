@@ -5,12 +5,14 @@ function getOrder () {
     console.log(confirmationNumber);
     };
    }
-
-
 getOrder();
 
-let displayContinueShoppingButton = document.createElement('a');
+function continueShopping(){
+let displayContinueShoppingButton = document.createElement("a");
 displayContinueShoppingButton.textContent = "Continue shopping";
 displayContinueShoppingButton.href = "index.html"
 displayContinueShoppingButton.className = "continueShopping";
 document.querySelector(".confirmationContent").appendChild(displayContinueShoppingButton);
+}
+continueShopping();
+localStorage.clear();
