@@ -1,4 +1,5 @@
-/*import {displayCart} from "./main";*/
+import { LoadDoc } from "/js/LoadDoc.js";
+import { LocalStorage } from "/js/LocalStorage.js";
 
 // API URL
 const url = "http://localhost:3000/api/furniture/";
@@ -7,15 +8,9 @@ const url = "http://localhost:3000/api/furniture/";
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-
-
 var API = "http://localhost:3000/api/furniture/"+ id ;
-async function loadDoc(url) {
-    let result = await fetch(url)
-    return result.json()
-}
-/*function displayProductDetails() {*/
-loadDoc(API).then(article => {
+
+LoadDoc.loadDocFetch(API).then(article => {
         let productDisplay = document.createElement("article");
         document.querySelector("#productContent").appendChild(productDisplay);
         productDisplay.classList.add("productInformation");
@@ -45,7 +40,7 @@ loadDoc(API).then(article => {
         price.classList.add("price");
         price.textContent = article.price/100 + " €";
 
-    function selectVarnish(){
+    function getVarnish(){
         let label = document.createElement("label");
         label.textContent = "Select a varnish: ";
         let varnish = document.createElement("select");
@@ -62,13 +57,13 @@ loadDoc(API).then(article => {
             varnish.appendChild(options); 
             });
     }
-    selectVarnish();
+    getVarnish();
     
-    function changeTitleTag(){
+    function displayTitleTag(){
         let titleTag = document.querySelector("title");
         titleTag.textContent = article.name + ", Orinoco";
     }
-    function totalPrice(){
+    function getTotalPrice(){
         let price = parseInt(article.price)
         let cartPrice = JSON.parse(localStorage.getItem('totalPrice'));
             if(cartPrice != null){
@@ -77,16 +72,12 @@ loadDoc(API).then(article => {
                 localStorage.setItem("totalPrice", price);
             }
     }
-    
-        //-----CART----------//
-    function addToCart(){
+ 
+    function addToCartButton(){
         let cartButton = document.createElement("button");
         articleDescription.appendChild(cartButton);
         cartButton.classList.add("cartButton");
         cartButton.textContent = "Add to cart";
-
-        let cartIndex = document.querySelector(".cartIndex");
-
     
         cartButton.addEventListener("click", async function() {
             alert("Your" + " " + article.name + " has been added to your cart")
@@ -98,9 +89,9 @@ loadDoc(API).then(article => {
                 id : article._id,
                 varnish : selectedVarnish,
                 };
-                cartCount();
-                cartStock(selectedItem);
-                totalPrice();
+                LocalStorage.cartCount();
+                LocalStorage.cartStock(selectedItem);
+                getTotalPrice();
             
         });
 
@@ -136,9 +127,9 @@ loadDoc(API).then(article => {
                 localStorage.setItem("selectedItem", JSON.stringify(items));
             }
 
-        }    
+        }  
     }
-    addToCart();
+    addToCartButton();
 
     function displayCart(){
         let itemCount = localStorage.getItem("quantity");
@@ -148,7 +139,7 @@ loadDoc(API).then(article => {
     }
 
     displayCart();
-    changeTitleTag();
+    displayTitleTag();
 });
 
         

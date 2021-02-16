@@ -1,4 +1,6 @@
-/*import {displayCart} from "./main";*/
+import { LoadDoc } from "/js/LoadDoc.js";
+import { LocalStorage } from "/js/LocalStorage.js";
+
 // API URL
 const url = "http://localhost:3000/api/furniture/";
 
@@ -6,21 +8,7 @@ const url = "http://localhost:3000/api/furniture/";
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-
-
 var API = "http://localhost:3000/api/furniture/"+ id ;
-function loadDoc(url, idItem) {
-    var item;
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            item = this.responseText;
-        }
-    };
-    xhttp.open("GET", url + idItem , false);
-    xhttp.send();
-    return item;
-}
 
 function displayCart(){
     let itemCount = localStorage.getItem("quantity");
@@ -56,12 +44,12 @@ if(retrieveData == null) {
 } else {
     cartContainer.innerHTML = "";
 
-retrieveData.forEach(element => {
+retrieveData.forEach( function(element, index, array) {
     console.log(element);
     console.log(retrieveData);
     let idItem = element["id"];
     let varnishItem = element["varnish"]
-    let infoItem = JSON.parse(loadDoc(url, idItem));
+    let infoItem = JSON.parse(LoadDoc.loadDocAjax(url, idItem));
 
     let productInfo = document.createElement("div");
         document.querySelector(".cartContent").appendChild(productInfo);
@@ -91,6 +79,27 @@ retrieveData.forEach(element => {
         productDelete.id = "removeItemCart";
         productDelete.className = "fas fa-trash-alt";
         productInfo.appendChild(productDelete);
+        productDelete.value = idItem;
+        console.log(productDelete.value);
+
+        productDelete.addEventListener('click', e => {
+            let cart = retrieveData;
+            cart.splice(index, 1);
+            deleteOneItem(cart);
+            location.reload();
+            LocalStorage.cartCount();
+            });
+
+        function deleteOneItem(cart) {
+
+            localStorage.setItem("selectedItem", JSON.stringify(cart));
+                if (cart.length === 0) {
+                    localStorage.removeItem("selectedItem");
+                }
+        }
+
+
+    LoadDoc.loadDocAjax(url, idItem);
 
     });
 
@@ -115,12 +124,10 @@ retrieveData.forEach(element => {
 
     getCartData();
 
-document.getElementById("sendButton").addEventListener("click", orderValidation);
+document.getElementById("sendButton").addEventListener("click", orderValidationButton);
 
 
-function orderValidation(event){
-
-/*function confirmOrder() {*/
+function orderValidationButton(event){
 
     let products = [];
     console.log(products);

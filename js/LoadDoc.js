@@ -4,6 +4,7 @@ const LoadDoc = new Object (
             let result = await fetch(url)
             return result.json()
         },
+
         loadDocAjax : function(url, idItem){
             var item;
             var xhttp = new XMLHttpRequest();
@@ -19,3 +20,5 @@ const LoadDoc = new Object (
     }
 
 );
+
+export { LoadDoc };

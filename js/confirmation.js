@@ -1,11 +1,11 @@
-function getOrder () {
+import { LocalStorage } from "/js/LocalStorage.js";
+/*function getOrder () {
     if (localStorage.getItem("order")){ 
     let confirmationNumber = document.querySelector("#orderNumber");
     confirmationNumber.innerHTML= "&nbsp" + JSON.parse(localStorage.getItem("order")).orderId;
-    console.log(confirmationNumber);
     };
-   }
-getOrder();
+   }*/
+LocalStorage.getOrder();
 
 function continueShopping(){
 let displayContinueShoppingButton = document.createElement("a");

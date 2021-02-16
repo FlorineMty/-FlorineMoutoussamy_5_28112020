@@ -1,11 +1,8 @@
+import { LoadDoc } from "/js/LoadDoc.js";
 
 // Get data from API
 var API = "http://localhost:3000/api/furniture";
-/*async function loadDoc(url) {
-    let result = await fetch(url)
-    return result.json()
-}
-*/
+
 function displayCart(){
   let itemCount = localStorage.getItem("quantity");
   if(itemCount){
