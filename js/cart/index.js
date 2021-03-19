@@ -11,12 +11,12 @@ var API = "http://localhost:3000/api/furniture/" + id;
 function loadDoc(url, idItem) {
     var item;
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             item = this.responseText;
         }
     };
-    xhttp.open("GET", url + idItem , false);
+    xhttp.open("GET", url + idItem, false);
     xhttp.send();
     return item;
 }
@@ -55,7 +55,7 @@ function getCartData() {
     } else {
         cartContainer.innerHTML = "";
 
-        retrieveData.forEach(element => {
+        retrieveData.forEach(function (element, index, array) {
             console.log(element);
             console.log(retrieveData);
             let idItem = element["id"];
@@ -98,7 +98,7 @@ function getCartData() {
                 cart.splice(index, 1);
                 deleteOneItem(cart);
                 location.reload();
-                cartCount();
+                //cartCount();
             });
 
             function deleteOneItem(cart) {
@@ -106,11 +106,12 @@ function getCartData() {
                 localStorage.setItem("selectedItem", JSON.stringify(cart));
                 if (cart.length === 0) {
                     localStorage.removeItem("selectedItem");
+
                 }
+
             }
 
-
-            loadDoc(url, idItem);
+            //loadDoc(url, idItem);
 
         });
 

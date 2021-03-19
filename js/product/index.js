@@ -45,11 +45,9 @@ loadDoc(API).then(article => {
         price.classList.add("price");
         price.textContent = article.price/100 + " €";
 
-    function getVarnish(){
         let label = document.createElement("label");
         label.textContent = "Select a varnish: ";
         let varnish = document.createElement("select");
-        let selection = article.varnish;
         articleDescription.appendChild(label);
         label.appendChild(varnish);
         varnish.id = "varnishSelection";
@@ -61,13 +59,7 @@ loadDoc(API).then(article => {
             options.value = product;
             varnish.appendChild(options); 
             });
-    }
-    getVarnish();
     
-    function getTitleTag(){
-        let titleTag = document.querySelector("title");
-        titleTag.textContent = article.name + ", Orinoco";
-    }
     function getTotalPrice(){
         let price = parseInt(article.price)
         let cartPrice = JSON.parse(localStorage.getItem('totalPrice'));

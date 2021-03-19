@@ -13,7 +13,7 @@ function displayCart(){
       document.querySelector(".cartIndex").textContent = itemCount;
   }
 }
-displayCart();
+displayCart(); 
 
 // Display furniture cards
 function getAllItems() {
