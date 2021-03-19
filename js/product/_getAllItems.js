@@ -2,11 +2,6 @@
 // Get data from API
 var API = "http://localhost:3000/api/furniture";
 
-async function loadDoc(url) {
-    let result = await fetch(url)
-    return result.json()
-}
-
 function displayCart(){
   let itemCount = localStorage.getItem("quantity");
   if(itemCount){
@@ -17,7 +12,7 @@ displayCart();
 
 // Display furniture cards
 function getAllItems() {
-loadDoc(API).then(articles => {
+loadDocFetch(API).then(articles => {
   console.log(articles)
     articles.forEach(article =>  
     {
@@ -53,7 +48,7 @@ loadDoc(API).then(articles => {
         let link = document.createElement("a");
         articleDescription.appendChild(link);
         link.classList.add("link");
-        link.href = `product.html?id=${article._id}`;
+        link.href = `produit.html?id=${article._id}`;
         link.textContent = "See more details";
         
         })

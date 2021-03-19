@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="shortcut icon" type="image/png" href="">
+    <script src="https://kit.fontawesome.com/9877c52245.js" crossorigin="anonymous"></script>
+    <link href="css/stylesheetP5.css" rel="stylesheet">
+
+    <title>My cart</title>
+    <description>Orinoco, Leading second-hand furniture place of high quality wooden goods</description>    
+
+</head>
+<body>
+    <header>
+        <nav>
+            <a class="brandName" href="index.html">
+            Orinoco
+            </a>
+            <ul>
+                <li class="logIn">Log in</li>
+                <li class="cart">
+                    <a href="cart.html"><i class="fas fa-shopping-cart">
+                    </i><span class="cartIndex">0</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+    <main class="cartPage">
+        <div class="cartContent"></div>
+            </div>
+        <form id="registrationForm">
+            <h1>Order Registration</h1>
+            <div class="formField">
+                <label for="lastname">Last name </label>
+                <input type="text" id="lastname" name="user_lastname" required><span id='missLastname'></span>
+            </div>
+            <div class="formField">
+                <label for="firstame">First Name </label>
+                <input type="text" id="firstname" name="user_firstame" required><span id='missFirstname'></span>
+            </div>
+            <div class="formField">
+                <label for=address>Address</label>
+                <input id="address" name=address type=text required><span id='missAddress'></span>
+            </div>
+            <div class="formField">
+                <label for=city>City</label>
+                <input id="city" name=city type=text required><span id='missCity'></span>
+            </div>
+            <div class="formField">
+                <label for="email">Email</label> 
+                <input type="email" name="email" id="email" class="validTab" required><span id='missEmail'></span>
+                <span id="emailHelp"></span>
+            </div>
+            <input id="sendButton" type="button" value="Confirm your order">
+        </form>
+    </main>
+    <footer>
+        <div class="footerText">
+            <div class="footerBrandName"> Orinoco</div>
+            <div>Who are we?</div>
+            <div>Terms and conditions</div>
+            <div class="contact"> <a href="mailto:contact@orinoco.com">Contact us</a></div>
+        </div>
+    </footer>
+    <script type="module" src="js/cart/index.js" defer> </script>
+</body>
+</html>

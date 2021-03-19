@@ -1,5 +1,5 @@
-import { LoadDoc } from "/js/LoadDoc.js";
-import { LocalStorage } from "/js/LocalStorage.js";
+
+// import { LocalStorage } from "/js/LocalStorage.js";
 
 // API URL
 const url = "http://localhost:3000/api/furniture/";
@@ -10,7 +10,12 @@ const id = params.get("id");
 
 var API = "http://localhost:3000/api/furniture/"+ id ;
 
-LoadDoc.loadDocFetch(API).then(article => {
+async function loadDoc(url) {
+    let result = await fetch(url)
+    return result.json()
+};
+
+loadDoc(API).then(article => {
         let productDisplay = document.createElement("article");
         document.querySelector("#productContent").appendChild(productDisplay);
         productDisplay.classList.add("productInformation");
@@ -59,7 +64,7 @@ LoadDoc.loadDocFetch(API).then(article => {
     }
     getVarnish();
     
-    function displayTitleTag(){
+    function getTitleTag(){
         let titleTag = document.querySelector("title");
         titleTag.textContent = article.name + ", Orinoco";
     }
@@ -73,15 +78,13 @@ LoadDoc.loadDocFetch(API).then(article => {
             }
     }
  
-    function addToCartButton(){
+    function addToCart(){
         let cartButton = document.createElement("button");
         articleDescription.appendChild(cartButton);
         cartButton.classList.add("cartButton");
         cartButton.textContent = "Add to cart";
     
         cartButton.addEventListener("click", async function() {
-            alert("Your" + " " + article.name + " has been added to your cart")
-
             let selectedVarnish = document.getElementById("varnishSelection").value;
             console.log(selectedVarnish);
 
@@ -89,11 +92,13 @@ LoadDoc.loadDocFetch(API).then(article => {
                 id : article._id,
                 varnish : selectedVarnish,
                 };
-                LocalStorage.cartCount();
-                LocalStorage.cartStock(selectedItem);
+                cartCount();
+                cartStock(selectedItem);
                 getTotalPrice();
             
         });
+
+        let cartIndex = document.querySelector(".cartIndex");
 
         function cartCount(){
             let itemCount = localStorage.getItem("quantity");
@@ -129,7 +134,7 @@ LoadDoc.loadDocFetch(API).then(article => {
 
         }  
     }
-    addToCartButton();
+    addToCart();
 
     function displayCart(){
         let itemCount = localStorage.getItem("quantity");
@@ -139,7 +144,7 @@ LoadDoc.loadDocFetch(API).then(article => {
     }
 
     displayCart();
-    displayTitleTag();
+    getTitleTag();
 });
 
         
