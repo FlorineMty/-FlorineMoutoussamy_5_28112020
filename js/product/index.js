@@ -8,10 +8,10 @@ import getItemById from "./_getItemById.js";
 // Get params from URL
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
-// API URL
-const api = "http://localhost:3000/api/furniture/" + id;
+// API URL with Id param
+const apiId = "http://localhost:3000/api/furniture/" + id;
 
-getItemById(api).then(article => {
+getItemById(apiId).then(article => {
     let productDisplay = document.createElement("article");
     document.querySelector("#productContent").appendChild(productDisplay);
     productDisplay.classList.add("productInformation");
@@ -56,7 +56,7 @@ getItemById(api).then(article => {
         varnish.appendChild(options);
     });
 
-    function getTotalPrice() {
+    function storeTotalPrice() {
         let price = parseInt(article.price)
         let cartPrice = JSON.parse(localStorage.getItem('totalPrice'));
         if (cartPrice != null) {
@@ -82,7 +82,7 @@ getItemById(api).then(article => {
             };
             updateQuantity();
             cartStorage(selectedItem);
-            getTotalPrice();
+            storeTotalPrice();
 
         });
 

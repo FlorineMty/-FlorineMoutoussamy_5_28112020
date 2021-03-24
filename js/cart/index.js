@@ -53,8 +53,6 @@ function getCartData() {
     } else {
 
         retrieveData.forEach(function (element, index, array) {
-            console.log(element);
-            console.log(retrieveData);
             let idItem = element["id"];
             let varnishItem = element["varnish"]
             let infoItem = JSON.parse(loadDoc(url, idItem));
@@ -111,12 +109,11 @@ function getCartData() {
         totalPriceOrder.innerText = "The total amount of your order is " + totalAmount / 100 + ` €`;
 
         
-        let clearCart = document.createElement("button");
+       let clearCart = document.createElement("button");
         document.querySelector(".cartContent").appendChild(clearCart);
         clearCart.className = "clearCartButton";
         clearCart.textContent = "Empty the cart";
         clearCart.addEventListener("click", () => {
-            alert("Your cart is empty")
             localStorage.clear();
             location.reload();
 

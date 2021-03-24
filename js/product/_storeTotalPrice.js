@@ -1,4 +1,4 @@
-function getTotalPrice() {
+function storeTotalPrice() {
     let price = parseInt(article.price)
     let cartPrice = JSON.parse(localStorage.getItem('totalPrice'));
     if (cartPrice != null) {
@@ -8,4 +8,4 @@ function getTotalPrice() {
     }
 };
 
-export default getTotalPrice;
+export default storeTotalPrice;
