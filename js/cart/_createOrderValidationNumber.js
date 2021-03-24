@@ -1,9 +1,7 @@
-document.getElementById("sendButton").addEventListener("click", createOrderValidationNumber);
 
 function createOrderValidationNumber(event) {
-
+//Create an array to get data stored in local storage
     let products = [];
-    console.log(products);
 
     var items = localStorage.getItem("selectedItem");
     items = JSON.parse(items);
@@ -11,14 +9,12 @@ function createOrderValidationNumber(event) {
     items.forEach(element => {
         products.push(element.id);
     });
-
+//Get value fields entered by user
     let firstName = document.getElementById("firstname").value;
     let lastName = document.getElementById("lastname").value;
     let email = document.getElementById("email").value;
     let city = document.getElementById("city").value;
     let address = document.getElementById("address").value;
-    console.log(firstName);
-    console.log(lastName);
 
     let contact = {
         firstName: firstName,
@@ -38,7 +34,8 @@ function createOrderValidationNumber(event) {
 
     let objectRequest = JSON.stringify(object);
     console.log(objectRequest);
-    // Get value fields entered by user  
+
+// Regex validation form
 
     var validFormFirstname = document.getElementById("firstname");
     var missFirstname = document.getElementById("missFirstname");
@@ -119,7 +116,7 @@ function createOrderValidationNumber(event) {
     }
 
     if (error == false) {
-
+// Post ajax request 
         let request = new XMLHttpRequest();
         request.open("POST", "http://localhost:3000/api/furniture/order");
         request.setRequestHeader("Content-Type", "application/json");

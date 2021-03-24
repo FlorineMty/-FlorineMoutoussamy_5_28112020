@@ -1,4 +1,4 @@
-
+// Get selected items by user stored in local storage
 function loadDoc(url, idItem) {
     var item;
     var xhttp = new XMLHttpRequest();

@@ -1,4 +1,4 @@
-//import updateCartCount from "./_updateCartCount.js";
+import updateCartIcon from "../utils/_updateCartIcon.js";
 import deleteOneItem from "./_deleteOneItem.js";
 //import deleteItems from "./_deleteItems.js";
 //import getCartData from "./_getCartData.js";
@@ -26,13 +26,7 @@ function loadDoc(url, idItem) {
     return item;
 }
 
-function updateCartCount() {
-    let itemCount = localStorage.getItem("quantity");
-    if (itemCount) {
-        document.querySelector(".cartIndex").textContent = itemCount;
-    }
-}
-updateCartCount();
+updateCartIcon();
 
 function getCartData() {
 
@@ -116,7 +110,7 @@ function getCartData() {
         let totalAmount = JSON.parse(localStorage.getItem("totalPrice"))
         totalPriceOrder.innerText = "The total amount of your order is " + totalAmount / 100 + ` €`;
 
-       
+        
         let clearCart = document.createElement("button");
         document.querySelector(".cartContent").appendChild(clearCart);
         clearCart.className = "clearCartButton";

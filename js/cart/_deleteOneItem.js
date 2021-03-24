@@ -1,3 +1,4 @@
+// Delete one specific item in cart
 function deleteOneItem(cart) {
     localStorage.setItem("selectedItem", JSON.stringify(cart));
     if (cart.length === 0) {
