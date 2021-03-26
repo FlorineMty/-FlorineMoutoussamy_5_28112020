@@ -4,7 +4,7 @@ import getItemById from "../controllers/product/_getItemById.js";
 import storeTotalPrice from "../controllers/product/_storeTotalPrice.js";
 import updateQuantity from "../controllers/product/_updateQuantity.js";
 import cartStorage from "../controllers/product/_cartStorage.js";
-//import addToCart from "../controllers/product/_addToCart.js";
+import addToCart from "../controllers/product/_addToCart.js";
 
 // Get params from URL
 const params = new URLSearchParams(window.location.search);
@@ -65,32 +65,20 @@ getItemById(apiId).then(article => {
     cartButton.classList.add("cartButton");
     cartButton.textContent = "Add to cart";
 
-    /*let selectedVarnish = document.getElementById("varnishSelection").value;
+    let selectedVarnish = document.getElementById("varnishSelection").value;
     let selectedItem = {
         id: article._id,
         varnish: selectedVarnish,
     };
    
-    cartButton.onclick = addToCart(selectedItem);
-    console.log(cartButton.onclick);*/
-
-    function addToCart() {
-       //cartButton.addEventListener("click", async function () {
-            let selectedVarnish = document.getElementById("varnishSelection").value;
-            console.log(selectedVarnish);
-
-            let selectedItem = {
-                id: article._id,
-                varnish: selectedVarnish,
-            };
+    /*function addToCart(selectedItem) {            
             updateQuantity(cartIndexEl);
             cartStorage(selectedItem);
             storeTotalPrice(price);
+    }*/
+    cartButton.onclick = addToCart(selectedItem);
+    console.log(cartButton.onclick);
 
-        //});
-    }
-
-    addToCart();
     updateCartIcon();
 });
 
