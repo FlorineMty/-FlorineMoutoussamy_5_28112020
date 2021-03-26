@@ -1,5 +1,4 @@
-function storeTotalPrice() {
-    let price = parseInt(article.price)
+function storeTotalPrice(price) {
     let cartPrice = JSON.parse(localStorage.getItem('totalPrice'));
     if (cartPrice != null) {
         localStorage.setItem("totalPrice", cartPrice + price);

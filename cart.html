@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="fr">
+
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="">
@@ -10,20 +11,21 @@
     <link href="css/stylesheetP5.css" rel="stylesheet">
 
     <title>My cart</title>
-    <description>Orinoco, Leading second-hand furniture place of high quality wooden goods</description>    
+    <description>Orinoco, Leading second-hand furniture place of high quality wooden goods</description>
 
 </head>
+
 <body>
     <header>
         <nav>
             <a class="brandName" href="index.html">
-            Orinoco
+                Orinoco
             </a>
             <ul>
                 <li class="logIn">Log in</li>
                 <li class="cart">
                     <a href="cart.html"><i class="fas fa-shopping-cart">
-                    </i><span class="cartIndex">0</span>
+                        </i><span class="cartIndex">0</span>
                     </a>
                 </li>
             </ul>
@@ -36,7 +38,7 @@
     </header>
     <main class="cartPage">
         <div class="cartContent"></div>
-            </div>
+        </div>
         <form id="registrationForm">
             <h1>Order Registration</h1>
             <div class="formField">
@@ -56,7 +58,7 @@
                 <input id="city" name=city type=text required><span id='missCity'></span>
             </div>
             <div class="formField">
-                <label for="email">Email</label> 
+                <label for="email">Email</label>
                 <input type="email" name="email" id="email" class="validTab" required><span id='missEmail'></span>
                 <span id="emailHelp"></span>
             </div>
@@ -71,6 +73,7 @@
             <div class="contact"> <a href="mailto:contact@orinoco.com">Contact us</a></div>
         </div>
     </footer>
-    <script type="module" src="js/cart/index.js" defer> </script>
+    <script type="module" src="js/pages/cart.js" defer> </script>
 </body>
+
 </html>

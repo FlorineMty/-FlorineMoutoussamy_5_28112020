@@ -1,9 +1,10 @@
 
-//import addToCart from "./_addToCart.js";
-import updateCartIcon from "../utils/_updateCartIcon.js";
-import updateTitleTag from "../utils/_updateTitleTag.js";
-import getItemById from "./_getItemById.js";
-//import getTotalPrice from "./_getTotalPrice.js"
+import updateCartIcon from "../controllers/cart/_updateCartIcon.js";
+import getItemById from "../controllers/product/_getItemById.js";
+import storeTotalPrice from "../controllers/product/_storeTotalPrice.js";
+import updateQuantity from "../controllers/product/_updateQuantity.js";
+import cartStorage from "../controllers/product/_cartStorage.js";
+//import addToCart from "../controllers/product/_addToCart.js";
 
 // Get params from URL
 const params = new URLSearchParams(window.location.search);
@@ -36,10 +37,10 @@ getItemById(apiId).then(article => {
     description.classList.add("descriptionCard");
     description.textContent = article.description;
 
-    let price = document.createElement("p");
-    articleDescription.appendChild(price);
-    price.classList.add("price");
-    price.textContent = article.price / 100 + " €";
+    let priceEl = document.createElement("p");
+    articleDescription.appendChild(priceEl);
+    priceEl.classList.add("price");
+    priceEl.textContent = article.price / 100 + " €";
 
     let label = document.createElement("label");
     label.textContent = "Select a varnish: ";
@@ -56,23 +57,25 @@ getItemById(apiId).then(article => {
         varnish.appendChild(options);
     });
 
-    function storeTotalPrice() {
-        let price = parseInt(article.price)
-        let cartPrice = JSON.parse(localStorage.getItem('totalPrice'));
-        if (cartPrice != null) {
-            localStorage.setItem("totalPrice", cartPrice + price);
-        } else {
-            localStorage.setItem("totalPrice", price);
-        }
-    }
+    let price = parseInt(article.price)
+    let cartIndexEl = document.querySelector(".cartIndex");
 
     let cartButton = document.createElement("button");
     articleDescription.appendChild(cartButton);
     cartButton.classList.add("cartButton");
     cartButton.textContent = "Add to cart";
 
+    /*let selectedVarnish = document.getElementById("varnishSelection").value;
+    let selectedItem = {
+        id: article._id,
+        varnish: selectedVarnish,
+    };
+   
+    cartButton.onclick = addToCart(selectedItem);
+    console.log(cartButton.onclick);*/
+
     function addToCart() {
-        cartButton.addEventListener("click", async function () {
+       //cartButton.addEventListener("click", async function () {
             let selectedVarnish = document.getElementById("varnishSelection").value;
             console.log(selectedVarnish);
 
@@ -80,51 +83,15 @@ getItemById(apiId).then(article => {
                 id: article._id,
                 varnish: selectedVarnish,
             };
-            updateQuantity();
+            updateQuantity(cartIndexEl);
             cartStorage(selectedItem);
-            storeTotalPrice();
+            storeTotalPrice(price);
 
-        });
-
-        let cartIndex = document.querySelector(".cartIndex");
-
-        function updateQuantity() {
-            let itemCount = localStorage.getItem("quantity");
-            itemCount = parseInt(itemCount);
-            if (itemCount) {
-                localStorage.setItem("quantity", itemCount + 1);
-                cartIndex.textContent = itemCount + 1;
-            } else {
-                localStorage.setItem("quantity", 1);
-                cartIndex.textContent = itemCount = 1;
-            }
-        }
-
-        function cartStorage(selectedItem) {
-            console.log("le produit est ", selectedItem);
-            let idItem = localStorage.getItem("selectedItem");
-
-            if (idItem == null) {
-                let items = [];
-                items.push(selectedItem);
-                localStorage.setItem("selectedItem", JSON.stringify(items));
-
-            }
-            else {
-                let list = JSON.parse(idItem);
-                let items = [];
-                list.forEach(element => {
-                    items.push(element);
-                });
-                items.push(selectedItem);
-                localStorage.setItem("selectedItem", JSON.stringify(items));
-            }
-
-        }
+        //});
     }
-    addToCart(cartButton);
+
+    addToCart();
     updateCartIcon();
-    updateTitleTag();
 });
 
 

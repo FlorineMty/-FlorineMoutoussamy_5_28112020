@@ -1,8 +1,9 @@
-import updateCartIcon from "../utils/_updateCartIcon.js";
-import deleteOneItem from "./_deleteOneItem.js";
+import updateCartIcon from "../controllers/cart/_updateCartIcon.js";
 //import deleteItems from "./_deleteItems.js";
 //import getCartData from "./_getCartData.js";
-import createOrderValidationNumber from "./_createOrderValidationNumber.js"
+import createOrderValidationNumber from "../controllers/cart/_createOrderValidationNumber.js";
+import deleteOneItem from "../controllers/cart/_deleteOneItem.js";
+
 
 // API URL
 const url = "http://localhost:3000/api/furniture/";
@@ -108,8 +109,7 @@ function getCartData() {
         let totalAmount = JSON.parse(localStorage.getItem("totalPrice"))
         totalPriceOrder.innerText = "The total amount of your order is " + totalAmount / 100 + ` €`;
 
-        
-       let clearCart = document.createElement("button");
+        let clearCart = document.createElement("button");
         document.querySelector(".cartContent").appendChild(clearCart);
         clearCart.className = "clearCartButton";
         clearCart.textContent = "Empty the cart";

@@ -1,6 +1,6 @@
 
-import updateCartIcon from "./utils/_updateCartIcon.js";
-import getAllItems from "./product/_getAllItems.js";
+import updateCartIcon from "../controllers/cart/_updateCartIcon.js";
+import getAllItems from "../controllers/product/_getAllItems.js";
 // Get data from API
 const apiUrl = "http://localhost:3000/api/furniture";
 
