@@ -1,18 +1,27 @@
 
 import updateCartIcon from "../controllers/cart/_updateCartIcon.js";
-import getItemById from "../controllers/product/_getItemById.js";
+//import getItemById from "../controllers/product/_getItemById.js";
 import storeTotalPrice from "../controllers/product/_storeTotalPrice.js";
 import updateQuantity from "../controllers/product/_updateQuantity.js";
 import cartStorage from "../controllers/product/_cartStorage.js";
-import addToCart from "../controllers/product/_addToCart.js";
+//import addToCart from "../controllers/product/_addToCart.js";
+
+
+// API URL
+const url = "http://localhost:3000/api/furniture/";
 
 // Get params from URL
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
-// API URL with Id param
-const apiId = "http://localhost:3000/api/furniture/" + id;
 
-getItemById(apiId).then(article => {
+var api = "http://localhost:3000/api/furniture/" + id;
+
+async function getItemById(url) {
+    let result = await fetch(url)
+    return result.json()
+};
+
+getItemById(api).then(article => {
     let productDisplay = document.createElement("article");
     document.querySelector("#productContent").appendChild(productDisplay);
     productDisplay.classList.add("productInformation");
@@ -71,14 +80,19 @@ getItemById(apiId).then(article => {
         varnish: selectedVarnish,
     };
    
-    /*function addToCart(selectedItem) {            
-            updateQuantity(cartIndexEl);
-            cartStorage(selectedItem);
-            storeTotalPrice(price);
-    }*/
-    cartButton.onclick = addToCart(selectedItem);
-    console.log(cartButton.onclick);
+    function addToCart(selectedItem) {
+        let selectedVarnish = document.getElementById("varnishSelection").value;
+        console.log(selectedVarnish);
 
+        updateQuantity(cartIndexEl);
+        cartStorage(selectedItem);
+        storeTotalPrice(price);
+    };
+
+cartButton.onclick = () => addToCart(selectedItem);
+
+
+    
     updateCartIcon();
 });
 
