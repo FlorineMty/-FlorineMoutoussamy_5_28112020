@@ -1,4 +1,4 @@
-// Get data from API
+// Get data from API with fetch request
 const apiUrl = "http://localhost:3000/api/furniture";
 
 async function getAllItems(apiUrl) {

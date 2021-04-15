@@ -6,8 +6,9 @@ const apiUrl = "http://localhost:3000/api/furniture";
 
 updateCartIcon();
 
-// Display furniture cards
-getAllItems(apiUrl).then(articles => {
+// Display all furniture cards
+getAllItems(apiUrl)
+.then(articles => {
         console.log(articles)
         articles.forEach(article => {
             let furnitureCard = document.createElement("article");
@@ -44,7 +45,8 @@ getAllItems(apiUrl).then(articles => {
             link.classList.add("link");
             link.href = `product.html?id=${article._id}`;
             link.textContent = "See more details";
-
         })
+    }).catch(err => {
+        console.error(err)
     });
 

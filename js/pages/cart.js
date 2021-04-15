@@ -27,99 +27,153 @@ function loadDoc(url, idItem) {
     return item;
 }
 
+// Call the below function to update the items quantity in the cart icon
 updateCartIcon();
 
-function getCartData() {
+// Define selectors
+const cartContainerEl = document.querySelector(".carContent");
 
-    let retrieveData = JSON.parse(localStorage.getItem("selectedItem"));
+// Create DOM elements to display container when cart is empty
+function displayEmptyCart() {
+    let emptyCartContainer = document.createElement(".div");
+    emptyCartContainer.className = "emptyCartContainer";
 
-    if (retrieveData == null) {
-        let displayEmptyCartContainer = document.createElement("div");
-        displayEmptyCartContainer.className = "emptyCartContainer";
-        document.querySelector(".cartContent").appendChild(displayEmptyCartContainer);
+    let displayEmptyCart = document.createElement("div");
+    displayEmptyCart.textContent = "Your cart is empty";
+    displayEmptyCart.className = "emptyCart";
+    displayEmptyCartContainer.appendChild(displayEmptyCart);
 
-        let displayEmptyCart = document.createElement("div");
-        displayEmptyCart.textContent = "Your cart is empty";
-        displayEmptyCart.className = "emptyCart";
-        displayEmptyCartContainer.appendChild(displayEmptyCart);
+    let displayDiscoverButton = document.createElement("a");
+    displayDiscoverButton.textContent = "Discover our products";
+    displayDiscoverButton.href = "index.html"
+    displayDiscoverButton.className = "discoverButton";
+    displayEmptyCartContainer.appendChild(displayDiscoverButton);
 
-        let displayDiscoverButton = document.createElement("a");
-        displayDiscoverButton.textContent = "Discover our products";
-        displayDiscoverButton.href = "index.html"
-        displayDiscoverButton.className = "discoverButton";
-        displayEmptyCartContainer.appendChild(displayDiscoverButton);
+    document.getElementById("registrationForm").style.display = "none";
 
-        document.getElementById("registrationForm").style.display = "none";
+    return emptyCartContainer
+}
 
+// Create DOM elements to display cart row with selected items 
+function displayCartRow(element, index) {
+    let idItem = element["id"];
+    let varnishItem = element["varnish"]
+    let infoItem = JSON.parse(loadDoc(url, idItem));
+
+    let productInfo = document.createElement("div");
+    document.querySelector(".cartContent").appendChild(productInfo);
+    productInfo.className = "productSummary";
+
+    let productTitle = document.createElement("h3");
+    productTitle.id = "itemTitleCart";
+    productTitle.innerText = infoItem["name"];
+    productInfo.appendChild(productTitle);
+
+    let productLink = document.createElement("a");
+    productLink.classList.add("productLink");
+    productLink.href = `product.html?id=${infoItem._id}`;
+    productInfo.appendChild(productLink);
+
+    let productImage = document.createElement("img");
+    productImage.id = "itemImageCart";
+    productImage.src = infoItem["imageUrl"];
+    productImage.href = `product.html?id=${infoItem._id}`;
+    productLink.appendChild(productImage);
+
+    let productVarnish = document.createElement("p");
+    productVarnish.id = "itemVarnishCart";
+    productVarnish.innerText = varnishItem;
+    productInfo.appendChild(productVarnish);
+
+    let productPrice = document.createElement("p");
+    productPrice.id = "itemPriceCart";
+    productPrice.innerText = infoItem.price / 100 + ` €`;
+    productInfo.appendChild(productPrice);
+
+    let productDelete = document.createElement("i");
+    productDelete.id = "removeItemCart";
+    productDelete.className = "fas fa-trash-alt";
+    productInfo.appendChild(productDelete);
+    productDelete.value = idItem;
+    console.log(productDelete.value);
+
+    productDelete.addEventListener("click", e => {
+        deleteOneItem(index);
+        location.reload();
+    });
+    return productInfo;
+}
+
+// Display cart page according to the local storage content
+function displayCart(cartData) {
+    let cartContent = null;
+
+    if (cartData === null) {
+        cartContent = displayEmptyCart()
     } else {
-
-        retrieveData.forEach(function (element, index, array) {
-            let idItem = element["id"];
-            let varnishItem = element["varnish"]
-            let infoItem = JSON.parse(loadDoc(url, idItem));
-
-            let productInfo = document.createElement("div");
-            document.querySelector(".cartContent").appendChild(productInfo);
-            productInfo.className = "productSummary";
-
-            let productTitle = document.createElement("h3");
-            productTitle.id = "itemTitleCart";
-            productTitle.innerText = infoItem["name"];
-            productInfo.appendChild(productTitle);
-
-            let productLink = document.createElement("a");
-            productLink.classList.add("productLink");
-            productLink.href = `product.html?id=${infoItem._id}`;
-            productInfo.appendChild(productLink);
-
-            let productImage = document.createElement("img");
-            productImage.id = "itemImageCart";
-            productImage.src = infoItem["imageUrl"];
-            productImage.href = `product.html?id=${infoItem._id}`;
-            productLink.appendChild(productImage);
-
-            let productVarnish = document.createElement("p");
-            productVarnish.id = "itemVarnishCart";
-            productVarnish.innerText = varnishItem;
-            productInfo.appendChild(productVarnish);
-
-            let productPrice = document.createElement("p");
-            productPrice.id = "itemPriceCart";
-            productPrice.innerText = infoItem.price / 100 + ` €`;
-            productInfo.appendChild(productPrice);
-
-            let productDelete = document.createElement("i");
-            productDelete.id = "removeItemCart";
-            productDelete.className = "fas fa-trash-alt";
-            productInfo.appendChild(productDelete);
-            productDelete.value = idItem;
-            console.log(productDelete.value);
-
-            productDelete.addEventListener('click', e => {
-                let cart = retrieveData;
-                cart.splice(index, 1);
-                deleteOneItem(cart);
-                location.reload();
-            });
-        });
-
-        let totalPriceOrder = document.createElement("p");
-        totalPriceOrder.id = "totalPriceOrder";
-        document.querySelector(".cartContent").appendChild(totalPriceOrder);
-        let totalAmount = JSON.parse(localStorage.getItem("totalPrice"))
-        totalPriceOrder.innerText = "The total amount of your order is " + totalAmount / 100 + ` €`;
-
-        let clearCart = document.createElement("button");
-        document.querySelector(".cartContent").appendChild(clearCart);
-        clearCart.className = "clearCartButton";
-        clearCart.textContent = "Empty the cart";
-        clearCart.addEventListener("click", () => {
-            localStorage.clear();
-            location.reload();
-
+        cartContent = document.createElement("div");
+        cartContent.className = "cartContainer";
+        cartData.forEach(function (cartItem, index) {
+            const cartRow = displayCartRow(cartItem, index)
+            cartContent.appendChild(cartRow);
         });
     }
+    return cartContent
+}
+
+// Create DOM elements to display a button to empty cart
+function displayClearCartButton() {
+    let clearCart = document.createElement("button");
+    document.querySelector(".cartContent").appendChild(clearCart);
+    clearCart.className = "clearCartButton";
+    clearCart.textContent = "Empty the cart";
+    clearCart.addEventListener("click", () => {
+        localStorage.clear();
+        location.reload();
+    });
+    return clearCart
+} 
+
+// Create DOM elements to display total cart price
+function displayPrice(amount) {
+    let totalPriceOrder = document.createElement("p");
+    totalPriceOrder.id = "totalPriceOrder";
+    totalPriceOrder.innerText = "The total amount of your order is " + totalAmount / 100 + ` €`;
+    return totalPriceOrder
+}
+
+// Add total prices 
+function getTotalPrice(cartData) {
+    let price = 0;
+    cartData.forEach(function(cartItem) {
+        price += cartItem.price
+    })
+    return price
+}
+
+// Get working cart page
+function getCartData() {
+
+    let cartData = JSON.parse(localStorage.getItem("cart"));
+    let cartContent = null;
+    let priceContent = null;
+    let clearButton = null;
+    if (cartData === null) {
+        cartContent = displayEmptyCart()
+        cartContainerEl.appendChild(cartContent);
+    } else {
+        let totalPrice = getTotalPrice(cartData);
+        cartContent = displayCart(cartData)
+        priceContent = displayPrice(totalPrice)
+        clearButton = displayClearCartButton()
+
+        cartContainerEl.appendChild(cartContent);
+        cartContainerEl.appendChild(priceContent);
+        cartContainerEl.appendChild(clearButton);
+    }
+
 };
+
 //deleteItems();
 getCartData();
 
