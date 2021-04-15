@@ -1,9 +1,11 @@
 
 import updateCartIcon from "../controllers/cart/_updateCartIcon.js";
 import getAllItems from "../controllers/product/_getAllItems.js";
+
 // Get data from API
 const apiUrl = "http://localhost:3000/api/furniture";
 
+// Call the below function to update the items quantity in the cart icon
 updateCartIcon();
 
 // Display all furniture cards

@@ -1,7 +1,8 @@
 // Update Cart icon with right quantity
 function updateCartIcon() {
-    let itemCount = localStorage.getItem("quantity");
-    if (itemCount) {
+    let cartStorage = localStorage.getItem("cart");
+    if (cartStorage !== null) {
+        const cart = JSON.parse(cartStorage);
         document.querySelector(".cartIndex").textContent = itemCount;
     }
 };

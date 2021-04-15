@@ -1,17 +1,15 @@
 // Delete one specific item in cart
-function deleteOneItem(cart) {
-    localStorage.setItem("selectedItem", JSON.stringify(cart));
-    if (cart.length === 0) {
-        localStorage.removeItem("selectedItem");
-    }
-    let itemCount = localStorage.getItem("quantity");
-    itemCount = parseInt(itemCount);
-    if (itemCount) {
-        localStorage.setItem("quantity", itemCount - 1);
-        document.querySelector(".cartIndex").textContent = itemCount - 1;
-    } else {
-        localStorage.setItem("quantity", 1);
-        document.querySelector(".cartIndex").textContent = itemCount = 1;
+function deleteOneItem(index) {
+    const cartStorage = localStorage.getItem("cart");
+    if (cartStorage !== null) {
+        const cart = JSON.parse(cartStorage);
+        cart.splice(index,1);
+
+        if (cart.length === 0) {
+            localStorage.removeItem("cart");
+        } else {
+            localStorage.setItem("cart", JSON.stringify(cart));
+        }
     }
 };
 

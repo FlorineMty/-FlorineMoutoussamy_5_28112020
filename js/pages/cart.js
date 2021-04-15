@@ -12,7 +12,7 @@ const url = "http://localhost:3000/api/furniture/";
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-var API = "http://localhost:3000/api/furniture/" + id;
+const API = "http://localhost:3000/api/furniture/" + id;
 
 function loadDoc(url, idItem) {
     var item;
@@ -174,7 +174,6 @@ function getCartData() {
 
 };
 
-//deleteItems();
 getCartData();
 
 document.getElementById("sendButton").addEventListener("click", createOrderValidationNumber);

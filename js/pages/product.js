@@ -14,16 +14,20 @@ const url = "http://localhost:3000/api/furniture/";
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-var api = "http://localhost:3000/api/furniture/" + id;
+const api = "http://localhost:3000/api/furniture/" + id;
+
+// Define selectors
+const productContainerEl = document.querySelector("#productContent");
+const cartIndexEl = document.querySelector(".cartIndex");
 
 async function getItemById(url) {
     let result = await fetch(url)
     return result.json()
 };
 
-getItemById(api).then(article => {
+// Create and append DOM elements to target container
+function displayOneProduct(article) {
     let productDisplay = document.createElement("article");
-    document.querySelector("#productContent").appendChild(productDisplay);
     productDisplay.classList.add("productInformation");
 
     let image = document.createElement("img");
@@ -53,6 +57,7 @@ getItemById(api).then(article => {
 
     let label = document.createElement("label");
     label.textContent = "Select a varnish: ";
+
     let varnish = document.createElement("select");
     articleDescription.appendChild(label);
     label.appendChild(varnish);
@@ -66,34 +71,37 @@ getItemById(api).then(article => {
         varnish.appendChild(options);
     });
 
-    let price = parseInt(article.price)
-    let cartIndexEl = document.querySelector(".cartIndex");
-
     let cartButton = document.createElement("button");
     articleDescription.appendChild(cartButton);
     cartButton.classList.add("cartButton");
     cartButton.textContent = "Add to cart";
+    cartButton.id = "addToCart";
 
-    let selectedVarnish = document.getElementById("varnishSelection").value;
-    let selectedItem = {
-        id: article._id,
-        varnish: selectedVarnish,
-    };
-   
-    function addToCart(selectedItem) {
+    return productDisplay;
+}
+
+// Call the below function to update the items quantity in the cart icon
+updateCartIcon();
+
+
+getItemById(api)
+.then(async article => {
+    const productDisplayEl = displayOneProduct(article);
+    productContainerEl.appendChild(productDisplayEl);
+
+    function addToCart() {
         let selectedVarnish = document.getElementById("varnishSelection").value;
-        console.log(selectedVarnish);
 
-        updateQuantity(cartIndexEl);
-        cartStorage(selectedItem);
-        storeTotalPrice(price);
+        let selectedItem = {
+            id: article._id,
+            varnish: selectedVarnish,
+            price: parseInt(article.price)
+        };
+        addItemToCart(selectedItem)
+        updateCartIcon()
     };
-
-cartButton.onclick = () => addToCart(selectedItem);
-
-
-    
-    updateCartIcon();
+    const cartButton = productDisplayEl.querySelector('#addToCart');
+    cartButton.onclick = () => addToCart();  
 });
 
 
