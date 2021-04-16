@@ -1,14 +1,7 @@
 
 import updateCartIcon from "../controllers/cart/_updateCartIcon.js";
-//import getItemById from "../controllers/product/_getItemById.js";
-import storeTotalPrice from "../controllers/product/_storeTotalPrice.js";
-import updateQuantity from "../controllers/product/_updateQuantity.js";
-import cartStorage from "../controllers/product/_cartStorage.js";
-//import addToCart from "../controllers/product/_addToCart.js";
-
-
-// API URL
-const url = "http://localhost:3000/api/furniture/";
+import getItemById from "../controllers/product/_getItemById.js";
+import addItemToCart from "../controllers/cart/_addItemToCart.js";
 
 // Get params from URL
 const params = new URLSearchParams(window.location.search);
@@ -20,10 +13,7 @@ const api = "http://localhost:3000/api/furniture/" + id;
 const productContainerEl = document.querySelector("#productContent");
 const cartIndexEl = document.querySelector(".cartIndex");
 
-async function getItemById(url) {
-    let result = await fetch(url)
-    return result.json()
-};
+updateCartIcon();
 
 // Create and append DOM elements to target container
 function displayOneProduct(article) {
@@ -77,18 +67,19 @@ function displayOneProduct(article) {
     cartButton.textContent = "Add to cart";
     cartButton.id = "addToCart";
 
+    let titleTag = document.querySelector("title");
+    titleTag.textContent = article.name + ", Orinoco";
+
     return productDisplay;
 }
 
-// Call the below function to update the items quantity in the cart icon
-updateCartIcon();
 
-
+// Get the id article and create/append DOM elements
 getItemById(api)
 .then(async article => {
     const productDisplayEl = displayOneProduct(article);
     productContainerEl.appendChild(productDisplayEl);
-
+// Get the value of the selected varnish
     function addToCart() {
         let selectedVarnish = document.getElementById("varnishSelection").value;
 
@@ -102,6 +93,8 @@ getItemById(api)
     };
     const cartButton = productDisplayEl.querySelector('#addToCart');
     cartButton.onclick = () => addToCart();  
+}).catch(err => {
+    console.error(err)
 });
 
 

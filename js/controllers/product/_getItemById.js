@@ -1,12 +1,10 @@
-// Get params from URL
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+// Get id item from API with fetch request
 
 // API URL
-var api = "http://localhost:3000/api/furniture/" + id;
+const url = "http://localhost:3000/api/furniture/";
 
-async function getItemById(api) {
-    let result = await fetch(api)
+async function getItemById(url) {
+    let result = await fetch(url)
     return result.json()
 };
 

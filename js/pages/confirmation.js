@@ -1,9 +1,4 @@
-//import {
-//    getOrder, 
-//    continueShopping, 
-//} from "../controllers/confirmation"
-
-import getOrder from "../controllers/confirmation/_getOrder";
+import getOrder from "../controllers/confirmation/_getOrder.js";
 
 getOrder();
 

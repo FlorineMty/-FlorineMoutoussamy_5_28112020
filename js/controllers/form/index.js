@@ -1,15 +1,19 @@
+/*function getIdStored() {
+    //Create an array to get data stored in local storage
+        let products = [];
+    
+        var items = localStorage.getItem("cart");
+        items = JSON.parse(items);
+        console.log(items);
+    
+        items.forEach(element => {
+            products.push(element.id);
+        });
 
-function createOrderValidationNumber(event) {
-//Create an array to get data stored in local storage
-    let products = [];
+        return products
+    }
 
-    var items = localStorage.getItem("selectedItem");
-    items = JSON.parse(items);
-
-    items.forEach(element => {
-        products.push(element.id);
-    });
-//Get value fields entered by user
+function getValueDataForm() {
     let firstName = document.getElementById("firstname").value;
     let lastName = document.getElementById("lastname").value;
     let email = document.getElementById("email").value;
@@ -34,9 +38,9 @@ function createOrderValidationNumber(event) {
 
     let objectRequest = JSON.stringify(object);
     console.log(objectRequest);
+}
 
-// Regex validation form
-
+function getRegexValidation(event) {
     var validFormFirstname = document.getElementById("firstname");
     var missFirstname = document.getElementById("missFirstname");
     var validFormLastname = document.getElementById("lastname");
@@ -115,22 +119,21 @@ function createOrderValidationNumber(event) {
         error = true;
     }
 
-    if (error == false) {
-// Post ajax request 
-        let request = new XMLHttpRequest();
-        request.open("POST", "http://localhost:3000/api/furniture/order");
-        request.setRequestHeader("Content-Type", "application/json");
-        request.send(objectRequest);
-        request.onreadystatechange = function () {
-            if (this.readyState == XMLHttpRequest.DONE) {
 
-                localStorage.setItem("order", this.responseText);
-                console.log(this.responseText);
-                alert(" Your order has been validated")
-                window.location.href = "confirmation.html";
-            }
-        };
-    }
-};
+}
 
-export default createOrderValidationNumber;
+function fetchOrderNumber() {
+    let request = new XMLHttpRequest();
+    request.open("POST", "http://localhost:3000/api/furniture/order");
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send(objectRequest);
+    request.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+
+            localStorage.setItem("order", this.responseText);
+            console.log(this.responseText);
+            alert(" Your order has been validated")
+            window.location.href = "confirmation.html";
+        }
+    };
+}*/

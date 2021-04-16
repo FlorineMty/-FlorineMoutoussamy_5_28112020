@@ -1,9 +1,8 @@
 import updateCartIcon from "../controllers/cart/_updateCartIcon.js";
-//import deleteItems from "./_deleteItems.js";
-//import getCartData from "./_getCartData.js";
-import createOrderValidationNumber from "../controllers/cart/_createOrderValidationNumber.js";
+import createOrderValidationNumber from "../controllers/form/_createOrderValidationNumber.js";
 import deleteOneItem from "../controllers/cart/_deleteOneItem.js";
-
+//import displayCart from "../controllers/cart/_displayCart.js";
+//import getTotalPrice from "../controllers/cart/_getTotalPrice.js";
 
 // API URL
 const url = "http://localhost:3000/api/furniture/";
@@ -31,23 +30,24 @@ function loadDoc(url, idItem) {
 updateCartIcon();
 
 // Define selectors
-const cartContainerEl = document.querySelector(".carContent");
+const cartContainerEl = document.querySelector(".cartContent");
+const confirmationOrderEl = document.getElementById("sendButton");
 
 // Create DOM elements to display container when cart is empty
 function displayEmptyCart() {
-    let emptyCartContainer = document.createElement(".div");
+    let emptyCartContainer = document.createElement("div");
     emptyCartContainer.className = "emptyCartContainer";
 
     let displayEmptyCart = document.createElement("div");
     displayEmptyCart.textContent = "Your cart is empty";
     displayEmptyCart.className = "emptyCart";
-    displayEmptyCartContainer.appendChild(displayEmptyCart);
+    emptyCartContainer.appendChild(displayEmptyCart);
 
     let displayDiscoverButton = document.createElement("a");
     displayDiscoverButton.textContent = "Discover our products";
     displayDiscoverButton.href = "index.html"
     displayDiscoverButton.className = "discoverButton";
-    displayEmptyCartContainer.appendChild(displayDiscoverButton);
+    emptyCartContainer.appendChild(displayDiscoverButton);
 
     document.getElementById("registrationForm").style.display = "none";
 
@@ -121,6 +121,8 @@ function displayCart(cartData) {
     return cartContent
 }
 
+
+
 // Create DOM elements to display a button to empty cart
 function displayClearCartButton() {
     let clearCart = document.createElement("button");
@@ -138,7 +140,7 @@ function displayClearCartButton() {
 function displayPrice(amount) {
     let totalPriceOrder = document.createElement("p");
     totalPriceOrder.id = "totalPriceOrder";
-    totalPriceOrder.innerText = "The total amount of your order is " + totalAmount / 100 + ` €`;
+    totalPriceOrder.innerText = "The total amount of your order is " + amount / 100 + ` €`;
     return totalPriceOrder
 }
 
@@ -162,7 +164,7 @@ function getCartData() {
         cartContent = displayEmptyCart()
         cartContainerEl.appendChild(cartContent);
     } else {
-        let totalPrice = getTotalPrice(cartData);
+        let totalPrice = getTotalPrice(cartData)
         cartContent = displayCart(cartData)
         priceContent = displayPrice(totalPrice)
         clearButton = displayClearCartButton()
@@ -173,10 +175,9 @@ function getCartData() {
     }
 
 };
-
 getCartData();
 
-document.getElementById("sendButton").addEventListener("click", createOrderValidationNumber);
+confirmationOrderEl.onclick = () => createOrderValidationNumber();  
 
 
 
