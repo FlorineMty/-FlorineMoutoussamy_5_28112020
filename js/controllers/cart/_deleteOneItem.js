@@ -1,7 +1,7 @@
 // Delete one specific item in cart
 function deleteOneItem(index) {
     const cartStorage = localStorage.getItem("cart");
-    if (cartStorage !== null) {
+    if (cartStorage !== null) { 
         const cart = JSON.parse(cartStorage);
         cart.splice(index,1);
 

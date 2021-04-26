@@ -121,8 +121,6 @@ function displayCart(cartData) {
     return cartContent
 }
 
-
-
 // Create DOM elements to display a button to empty cart
 function displayClearCartButton() {
     let clearCart = document.createElement("button");

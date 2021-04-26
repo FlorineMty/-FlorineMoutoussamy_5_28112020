@@ -1,5 +1,5 @@
 
-//////////////////////////////////////////////////////////////////
+
 
 function createOrderValidationNumber() {
 //Create an array to get data stored in local storage
@@ -41,41 +41,41 @@ function createOrderValidationNumber() {
 // Regex validation form
     var form_Ok = true;
 
-    var missFirstname = document.getElementById("missFirstname");
-    var missLastname = document.getElementById("missLastname");
-    var regexNames = /^[a-zA-Z ,.'-]+$/;
+    const missFirstname = document.getElementById("missFirstname");
+    const missLastname = document.getElementById("missLastname");
+    const regexNames = /^[a-zA-Z ,.'-]+$/;
 
-    var missAddress = document.getElementById("missAddress");
-    var missCity = document.getElementById("missCity");
-    var regexAddress = /([0-9]{1,3}(([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
-    var regexCity = /((([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
+    const missAddress = document.getElementById("missAddress");
+    const missCity = document.getElementById("missCity");
+    const regexAddress = /([0-9]{1,3}(([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
+    const regexCity = /((([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
 
-    var missEmail = document.getElementById("missEmail");
-    var regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const missEmail = document.getElementById("missEmail");
+    const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     if (lastName == "" || regexNames.exec(lastName) == null){
         form_Ok = false
-        missLastname.textContent = "Lastname is missing or is unvalid";
+        missLastname.textContent = "Lastname is missing or unvalid";
         missLastname.style.color = "red";
     }
     if (firstName == "" || regexNames.exec(firstName) == null){
         form_Ok = false
-        missFirstname.textContent = "Firstname is missing or is unvalid";
+        missFirstname.textContent = "Firstname is missing or unvalid";
         missFirstname.style.color = "red";
     }
     if (address == "" || regexAddress.exec(address) == null){
         form_Ok = false
-        missAddress.textContent = "Address is missing or is unvalid";
+        missAddress.textContent = "Address is missing or unvalid";
         missAddress.style.color = "red";
     }
     if (city == "" || regexCity.exec(address) == null){
         form_Ok = false
-        missCity.textContent = "City is missing or is unvalid";
+        missCity.textContent = "City is missing or unvalid";
         missCity.style.color = "red";
     }
     if (email == "" || regexEmail.exec(email) == null){
         form_Ok = false
-        missEmail.textContent = "Firstname is missing or is unvalid";
+        missEmail.textContent = "Firstname is missing or unvalid";
         missEmail.style.color = "red";
     } else {
 // Post ajax request 
