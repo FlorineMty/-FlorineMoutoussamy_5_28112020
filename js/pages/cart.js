@@ -1,8 +1,10 @@
 import updateCartIcon from "../controllers/cart/_updateCartIcon.js";
-import createOrderValidationNumber from "../controllers/form/_createOrderValidationNumber.js";
+import createOrderValidationNumber from "../pages/form.js";
 import deleteOneItem from "../controllers/cart/_deleteOneItem.js";
+import getCartItems from "../controllers/cart/_getCartItems.js";
 //import displayCart from "../controllers/cart/_displayCart.js";
-//import getTotalPrice from "../controllers/cart/_getTotalPrice.js";
+import getTotalPrice from "../controllers/cart/_getTotalPrice.js";
+import getCartData from "../controllers/cart/_getCartData.js";
 
 // API URL
 const url = "http://localhost:3000/api/furniture/";
@@ -12,19 +14,6 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
 const API = "http://localhost:3000/api/furniture/" + id;
-
-function loadDoc(url, idItem) {
-    var item;
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            item = this.responseText;
-        }
-    };
-    xhttp.open("GET", url + idItem, false);
-    xhttp.send();
-    return item;
-}
 
 // Call the below function to update the items quantity in the cart icon
 updateCartIcon();
@@ -58,7 +47,7 @@ function displayEmptyCart() {
 function displayCartRow(element, index) {
     let idItem = element["id"];
     let varnishItem = element["varnish"]
-    let infoItem = JSON.parse(loadDoc(url, idItem));
+    let infoItem = JSON.parse(getCartItems(url, idItem));
 
     let productInfo = document.createElement("div");
     document.querySelector(".cartContent").appendChild(productInfo);
@@ -132,7 +121,7 @@ function displayClearCartButton() {
         location.reload();
     });
     return clearCart
-} 
+}
 
 // Create DOM elements to display total cart price
 function displayPrice(amount) {
@@ -142,17 +131,8 @@ function displayPrice(amount) {
     return totalPriceOrder
 }
 
-// Add total prices 
-function getTotalPrice(cartData) {
-    let price = 0;
-    cartData.forEach(function(cartItem) {
-        price += cartItem.price
-    })
-    return price
-}
-
 // Get working cart page
-function getCartData() {
+/*function getCartData() {
 
     let cartData = JSON.parse(localStorage.getItem("cart"));
     let cartContent = null;
@@ -172,11 +152,13 @@ function getCartData() {
         cartContainerEl.appendChild(clearButton);
     }
 
-};
+};*/
 getCartData();
 
-confirmationOrderEl.onclick = () => createOrderValidationNumber();  
+confirmationOrderEl.onclick = () => createOrderValidationNumber();
 
+export default displayCart;
+//export { displayEmptyCart as default, displayCartRow as default };
 
 
 
