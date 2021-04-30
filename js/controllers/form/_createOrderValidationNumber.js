@@ -1,3 +1,16 @@
+// Define selectors
+const missFirstname = document.getElementById("missFirstname");
+const missLastname = document.getElementById("missLastname");
+const missAddress = document.getElementById("missAddress");
+const missCity = document.getElementById("missCity");
+const missEmail = document.getElementById("missEmail");
+
+// Define RegEx
+const regexNames = /^[a-zA-Z ,.'-]+$/;
+const regexAddress = /([0-9]{1,3}(([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
+const regexCity = /((([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
+const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
 //Create an array to get data stored in local storage
 function getIdStored() {
 
@@ -13,10 +26,49 @@ function getIdStored() {
 
     return products
 }
+
 //Get value fields entered by user
-function createOrderValidationNumber() {
+function getValueDataForm() {
 
     let products = getIdStored();
+
+    let contact = {
+        firstName: document.getElementById("firstname").value,
+        lastName: document.getElementById("lastname").value,
+        email: document.getElementById("email").value,
+        city: document.getElementById("city").value,
+        address: document.getElementById("address").value,
+    };
+
+    let object = {
+        contact,
+        products, // function getIdStored
+    };
+
+    let objectRequest = JSON.stringify(object);
+
+    return objectRequest
+
+}
+
+function fetchOrderNumber() {
+    let objectRequest = getValueDataForm();
+    let request = new XMLHttpRequest();
+    request.open("POST", "http://localhost:3000/api/furniture/order");
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send(objectRequest);
+    request.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE) {
+
+            localStorage.setItem("order", this.responseText);
+            console.log(this.responseText);
+            alert(" Your order has been validated")
+            window.location.href = "confirmation.html";
+        }
+    };
+}
+
+function createOrderValidationNumber() {
 
     let firstName = document.getElementById("firstname").value;
     let lastName = document.getElementById("lastname").value;
@@ -24,39 +76,8 @@ function createOrderValidationNumber() {
     let city = document.getElementById("city").value;
     let address = document.getElementById("address").value;
 
-    let contact = {
-        firstName,
-        lastName,
-        email,
-        city,
-        address,
-    };
-    console.log(contact);
-
-    let object = {
-        contact,
-        products,
-    };
-
-    console.log(object);
-
-    let objectRequest = JSON.stringify(object);
-    console.log(objectRequest);
-
     // Regex validation form
     var form_Ok = true;
-
-    const missFirstname = document.getElementById("missFirstname");
-    const missLastname = document.getElementById("missLastname");
-    const regexNames = /^[a-zA-Z ,.'-]+$/;
-
-    const missAddress = document.getElementById("missAddress");
-    const missCity = document.getElementById("missCity");
-    const regexAddress = /([0-9]{1,3}(([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
-    const regexCity = /((([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
-
-    const missEmail = document.getElementById("missEmail");
-    const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     if (lastName == "" || regexNames.exec(lastName) == null) {
         form_Ok = false
@@ -84,19 +105,7 @@ function createOrderValidationNumber() {
         missEmail.style.color = "red";
     } else {
         // Post ajax request 
-        let request = new XMLHttpRequest();
-        request.open("POST", "http://localhost:3000/api/furniture/order");
-        request.setRequestHeader("Content-Type", "application/json");
-        request.send(objectRequest);
-        request.onreadystatechange = function () {
-            if (this.readyState == XMLHttpRequest.DONE) {
-
-                localStorage.setItem("order", this.responseText);
-                console.log(this.responseText);
-                alert(" Your order has been validated")
-                window.location.href = "confirmation.html";
-            }
-        };
+        fetchOrderNumber();
     };
 };
 

@@ -72,6 +72,7 @@ function getRegexValidation(event) {
 }
 
 function fetchOrderNumber() {
+    let objectRequest = getValueDataForm();
     let request = new XMLHttpRequest();
     request.open("POST", "http://localhost:3000/api/furniture/order");
     request.setRequestHeader("Content-Type", "application/json");
