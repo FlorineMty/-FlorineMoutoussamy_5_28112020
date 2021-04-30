@@ -76,26 +76,26 @@ function displayOneProduct(article) {
 
 // Get the id article and create/append DOM elements
 getItemById(api)
-.then(async article => {
-    const productDisplayEl = displayOneProduct(article);
-    productContainerEl.appendChild(productDisplayEl);
-// Get the value of the selected varnish
-    function addToCart() {
-        let selectedVarnish = document.getElementById("varnishSelection").value;
+    .then(async article => {
+        const productDisplayEl = displayOneProduct(article);
+        productContainerEl.appendChild(productDisplayEl);
+        // Get the value of the selected varnish
+        function addToCart() {
+            let selectedVarnish = document.getElementById("varnishSelection").value;
 
-        let selectedItem = {
-            id: article._id,
-            varnish: selectedVarnish,
-            price: parseInt(article.price)
+            let selectedItem = {
+                id: article._id,
+                varnish: selectedVarnish,
+                price: parseInt(article.price)
+            };
+            addItemToCart(selectedItem)
+            updateCartIcon()
         };
-        addItemToCart(selectedItem)
-        updateCartIcon()
-    };
-    const cartButton = productDisplayEl.querySelector('#addToCart');
-    cartButton.onclick = () => addToCart();  
-}).catch(err => {
-    console.error(err)
-});
+        const cartButton = productDisplayEl.querySelector('#addToCart');
+        cartButton.onclick = () => addToCart();
+    }).catch(err => {
+        console.error(err)
+    });
 
 
 

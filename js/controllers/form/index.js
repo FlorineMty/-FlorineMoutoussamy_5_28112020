@@ -1,19 +1,8 @@
-/*function getIdStored() {
-    //Create an array to get data stored in local storage
-        let products = [];
-    
-        var items = localStorage.getItem("cart");
-        items = JSON.parse(items);
-        console.log(items);
-    
-        items.forEach(element => {
-            products.push(element.id);
-        });
-
-        return products
-    }
 
 function getValueDataForm() {
+
+    let products = getIdStored();
+
     let firstName = document.getElementById("firstname").value;
     let lastName = document.getElementById("lastname").value;
     let email = document.getElementById("email").value;
@@ -31,7 +20,7 @@ function getValueDataForm() {
 
     let object = {
         contact,
-        products,
+        products, // function getIdStored
     };
 
     console.log(object);
@@ -41,85 +30,45 @@ function getValueDataForm() {
 }
 
 function getRegexValidation(event) {
-    var validFormFirstname = document.getElementById("firstname");
-    var missFirstname = document.getElementById("missFirstname");
-    var validFormLastname = document.getElementById("lastname");
-    var missLastname = document.getElementById("missLastname");
-    var regexNames = /^[a-zA-Z ,.'-]+$/;
+    var form_Ok = true;
 
-    var validFormAddress = document.getElementById("address");
-    var missAddress = document.getElementById("missAddress");
-    var validFormCity = document.getElementById("city");
-    var missCity = document.getElementById("missCity");
-    var regexAddress = /([0-9]{1,3}(([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
-    var regexCity = /((([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
+    const missFirstname = document.getElementById("missFirstname");
+    const missLastname = document.getElementById("missLastname");
+    const regexNames = /^[a-zA-Z ,.'-]+$/;
 
-    var validFormEmail = document.getElementById("email");
-    var missEmail = document.getElementById("missEmail");
-    var regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const missAddress = document.getElementById("missAddress");
+    const missCity = document.getElementById("missCity");
+    const regexAddress = /([0-9]{1,3}(([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
+    const regexCity = /((([,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç']+)*)/;
 
-    var error = false;
+    const missEmail = document.getElementById("missEmail");
+    const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-    if (validFormFirstname.validity.valueMissing) {
-        event.preventDefault();
-        missFirstname.textContent = "Firstname is missing";
-        missFirstname.style.color = "red";
-        error = true;
-    } else if (regexNames.test(validFormFirstname.value) == false) {
-        event.preventDefault();
-        missFirstname.textContent = "Invalid format";
-        missFirstname.style.color = "orange";
-        error = true;
-    }
-    if (validFormLastname.validity.valueMissing) {
-        event.preventDefault();
-        missLastname.textContent = "Lastname is missing";
+    if (lastName == "" || regexNames.exec(lastName) == null){
+        form_Ok = false
+        missLastname.textContent = "Lastname is missing or unvalid";
         missLastname.style.color = "red";
-        error = true;
-    } else if (regexNames.test(validFormLastname.value) == false) {
-        event.preventDefault();
-        missLastname.textContent = "Invalid format";
-        missLastname.style.color = "orange";
-        error = true;
     }
-
-    if (validFormAddress.validity.valueMissing) {
-        event.preventDefault();
-        missAddress.textContent = "Address is missing";
+    if (firstName == "" || regexNames.exec(firstName) == null){
+        form_Ok = false
+        missFirstname.textContent = "Firstname is missing or unvalid";
+        missFirstname.style.color = "red";
+    }
+    if (address == "" || regexAddress.exec(address) == null){
+        form_Ok = false
+        missAddress.textContent = "Address is missing or unvalid";
         missAddress.style.color = "red";
-        error = true;
-    } else if (regexAddress.test(validFormAddress.value) == false) {
-        event.preventDefault();
-        missAddress.textContent = "Invalid format";
-        missAddress.style.color = "orange";
-        error = true;
     }
-
-    if (validFormCity.validity.valueMissing) {
-        event.preventDefault();
-        missCity.textContent = "City is missing";
+    if (city == "" || regexCity.exec(address) == null){
+        form_Ok = false
+        missCity.textContent = "City is missing or unvalid";
         missCity.style.color = "red";
-        error = true;
-    } else if (regexCity.test(validFormCity.value) == false) {
-        event.preventDefault();
-        missCity.textContent = "Invalid format";
-        missCity.style.color = "orange";
-        error = true;
     }
-
-    if (validFormEmail.validity.valueMissing) {
-        event.preventDefault();
-        missEmail.textContent = "Email is missing";
+    if (email == "" || regexEmail.exec(email) == null){
+        form_Ok = false
+        missEmail.textContent = "Firstname is missing or unvalid";
         missEmail.style.color = "red";
-        error = true;
-    } else if (regexEmail.test(validFormEmail.value) == false) {
-        event.preventDefault();
-        missEmail.textContent = "Invalid format";
-        missEmail.style.color = "orange";
-        error = true;
     }
-
-
 }
 
 function fetchOrderNumber() {
@@ -136,4 +85,4 @@ function fetchOrderNumber() {
             window.location.href = "confirmation.html";
         }
     };
-}*/
+}

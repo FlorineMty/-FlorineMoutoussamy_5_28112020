@@ -1,18 +1,23 @@
-
-
-
-function createOrderValidationNumber() {
 //Create an array to get data stored in local storage
+function getIdStored() {
+
     let products = [];
 
-    let items = localStorage.getItem("cart");
+    var items = localStorage.getItem("cart");
     items = JSON.parse(items);
     console.log(items);
 
     items.forEach(element => {
         products.push(element.id);
     });
+
+    return products
+}
 //Get value fields entered by user
+function createOrderValidationNumber() {
+
+    let products = getIdStored();
+
     let firstName = document.getElementById("firstname").value;
     let lastName = document.getElementById("lastname").value;
     let email = document.getElementById("email").value;
@@ -38,7 +43,7 @@ function createOrderValidationNumber() {
     let objectRequest = JSON.stringify(object);
     console.log(objectRequest);
 
-// Regex validation form
+    // Regex validation form
     var form_Ok = true;
 
     const missFirstname = document.getElementById("missFirstname");
@@ -53,32 +58,32 @@ function createOrderValidationNumber() {
     const missEmail = document.getElementById("missEmail");
     const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-    if (lastName == "" || regexNames.exec(lastName) == null){
+    if (lastName == "" || regexNames.exec(lastName) == null) {
         form_Ok = false
         missLastname.textContent = "Lastname is missing or unvalid";
         missLastname.style.color = "red";
     }
-    if (firstName == "" || regexNames.exec(firstName) == null){
+    if (firstName == "" || regexNames.exec(firstName) == null) {
         form_Ok = false
         missFirstname.textContent = "Firstname is missing or unvalid";
         missFirstname.style.color = "red";
     }
-    if (address == "" || regexAddress.exec(address) == null){
+    if (address == "" || regexAddress.exec(address) == null) {
         form_Ok = false
         missAddress.textContent = "Address is missing or unvalid";
         missAddress.style.color = "red";
     }
-    if (city == "" || regexCity.exec(address) == null){
+    if (city == "" || regexCity.exec(address) == null) {
         form_Ok = false
         missCity.textContent = "City is missing or unvalid";
         missCity.style.color = "red";
     }
-    if (email == "" || regexEmail.exec(email) == null){
+    if (email == "" || regexEmail.exec(email) == null) {
         form_Ok = false
         missEmail.textContent = "Firstname is missing or unvalid";
         missEmail.style.color = "red";
     } else {
-// Post ajax request 
+        // Post ajax request 
         let request = new XMLHttpRequest();
         request.open("POST", "http://localhost:3000/api/furniture/order");
         request.setRequestHeader("Content-Type", "application/json");
