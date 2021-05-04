@@ -1,7 +1,6 @@
 import getCartItems from "./_getCartItemsAjaxRequest.js";
 import deleteOneItem from "./_deleteOneItem.js";
 
-
 // Define constants
 const url = "http://localhost:3000/api/furniture/";
 

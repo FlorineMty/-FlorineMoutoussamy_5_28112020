@@ -14,6 +14,10 @@
 	src: url("../fonts/be-vietnam/BeVietnam-Regular.ttf");
 }
 /* -----------------------------------------------INDEX PAGE-------------------------------------------------------------*/
+html
+{
+    width: auto;
+}
 body
 {
     font-family: 'Barlow-Regular';
@@ -98,7 +102,7 @@ ul li a
 }
 .websiteContent
 {
-    margin-top: 15%;
+    margin-top: 10%;
 }
 h1,
 h2
@@ -106,16 +110,7 @@ h2
     font-family:'Barlow-Thin';
     text-align: center;
 }
-/*.=
-{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 5% 0;
-}
-*/
+
 footer
 {
     width: 100%;
@@ -174,7 +169,6 @@ h2
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20%;
 }
 .cartContent
 {
@@ -205,6 +199,11 @@ h2
     background-color: lightgrey;
     margin-top: 40px;
     width: 50%;
+}
+#removeItemCart
+{
+    font-weight: 900;
+    margin: 16px 0;
 }
 #sendButton
 
@@ -298,20 +297,28 @@ h2
     .websiteContent,
     .cartPage
     {
-        margin-top: 40%;
+        margin-top: 20%;
     }
     button.cartButton
     {
         width: 50%;
     }
-    .productSummary img
-    {
-        object-fit: cover;
-        height: 100px;
-    }
     #registrationForm
     {
         width: 90%;
+    }
+    nav 
+    {
+        margin-right: 10%;
+    }
+    #itemImageCart 
+    {
+        height: 80px;
+        object-fit: cover;
+    }
+    .productSummary
+    {
+        font-size: 13px;
     }
 }
 /* -----------------------------------------------JS-------------------------------------------------------------*/
@@ -345,7 +352,6 @@ h2
 {
     height: 300px;
     object-fit: cover;
-    width: 50%;
 }
 .link
 {
