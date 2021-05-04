@@ -1,4 +1,4 @@
-import getCartItems from "./_getCartItems.js";
+import getCartItems from "./_getCartItemsAjaxRequest.js";
 import deleteOneItem from "./_deleteOneItem.js";
 
 

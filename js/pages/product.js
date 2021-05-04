@@ -1,6 +1,6 @@
 
 import updateCartIcon from "../controllers/cart/_updateCartIcon.js";
-import getItemById from "../controllers/product/_getItemById.js";
+import getItemById from "../controllers/product/_getItemByIdFetchRequest.js";
 import addItemToCart from "../controllers/cart/_addItemToCart.js";
 
 // Get params from URL

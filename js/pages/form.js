@@ -1,11 +1,9 @@
 import fetchOrderId from "../controllers/form/_fetchOrderId.js";
 
-// Define selectors
-const missFirstname = document.getElementById("missFirstname");
-const missLastname = document.getElementById("missLastname");
-const missAddress = document.getElementById("missAddress");
-const missCity = document.getElementById("missCity");
-const missEmail = document.getElementById("missEmail");
+// Function which uppercases the first letter of a string
+function ucFirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 // Define RegEx
 const regexNames = /^[a-zA-Z ,.'-]+$/;
@@ -15,44 +13,46 @@ const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0
 
 // If succeed RegEx validation, the post ajax request can execute 
 function createOrderValidationNumber() {
-
-    let firstName = document.getElementById("firstname").value;
-    let lastName = document.getElementById("lastname").value;
-    let email = document.getElementById("email").value;
-    let city = document.getElementById("city").value;
-    let address = document.getElementById("address").value;
+    // Define an array with required details to validate the form
+    const fields = [
+        {
+            datakey: "firstname",
+            regex: regexNames
+        },
+        {
+            datakey: "lastname",
+            regex: regexNames
+        },
+        {
+            datakey: "email",
+            regex: regexEmail
+        },
+        {
+            datakey: "city",
+            regex: regexCity
+        },
+        {
+            datakey: "address",
+            regex: regexAddress
+        },
+    ]
 
     // Regex validation form
     var form_Ok = true;
 
-    if (lastName == "" || regexNames.exec(lastName) == null) {
-        form_Ok = false
-        missLastname.textContent = "Lastname is missing or unvalid";
-        missLastname.style.color = "red";
+    for (let i = 0; i < fields.length; i++) {
+        const field = fields[i];
+        const value = document.getElementById(field.datakey).value;
+        if (value == "" || field.regex.exec(value) == null) {
+            form_Ok = false
+            const missingDetails = document.getElementById(`miss${ucFirst(field.datakey)}`);
+            missingDetails.textContent = `${ucFirst(field.datakey)} is missing or unvalid`;
+            missingDetails.style.color = "red";
+        }
     }
-    if (firstName == "" || regexNames.exec(firstName) == null) {
-        form_Ok = false
-        missFirstname.textContent = "Firstname is missing or unvalid";
-        missFirstname.style.color = "red";
-    }
-    if (address == "" || regexAddress.exec(address) == null) {
-        form_Ok = false
-        missAddress.textContent = "Address is missing or unvalid";
-        missAddress.style.color = "red";
-    }
-    if (city == "" || regexCity.exec(address) == null) {
-        form_Ok = false
-        missCity.textContent = "City is missing or unvalid";
-        missCity.style.color = "red";
-    }
-    if (email == "" || regexEmail.exec(email) == null) {
-        form_Ok = false
-        missEmail.textContent = "Firstname is missing or unvalid";
-        missEmail.style.color = "red";
-    } else {
-        // Post ajax request 
+    if (form_Ok) {
         fetchOrderId();
-    };
+    }
 };
 
 export default createOrderValidationNumber;

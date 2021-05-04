@@ -1,6 +1,6 @@
 
 import updateCartIcon from "../controllers/cart/_updateCartIcon.js";
-import getAllItems from "../controllers/product/_getAllItems.js";
+import getAllItems from "../controllers/product/_getAllItemsFetchRequest.js";
 
 // Get data from API
 const apiUrl = "http://localhost:3000/api/furniture";
@@ -10,7 +10,7 @@ updateCartIcon();
 
 // Display all furniture cards
 getAllItems(apiUrl)
-.then(articles => {
+    .then(articles => {
         console.log(articles)
         articles.forEach(article => {
             let furnitureCard = document.createElement("article");
